@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
   titleWrapper: {
     width: '100%',
-    paddingVertical: '20px',
+    paddingVertical: 20,
   },
 });
 

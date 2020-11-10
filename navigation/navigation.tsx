@@ -1,30 +1,38 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
 
 import Desk from '../screens/desk/desk';
 import Card from '../screens/card/card';
 import Column from '../screens/column/column';
 import Auth from '../screens/auth/auth';
+import ColumnTitle from '../components/column-title/column-title';
 
 import Plus from 'react-native-vector-icons/AntDesign';
 import Settings from 'react-native-vector-icons/Feather';
 
-const MainStack = createStackNavigator();
+export type RootStackParamList = {
+  Desk: undefined;
+  Column: { columnId: string; columnName: string };
+  Card: undefined;
+  Auth: undefined;
+};
+
+const RootStack = createStackNavigator<RootStackParamList>();
 
 function Navigation() {
   const [isSignedIn, setIsSignedIn] = useState(true);
   return (
     <NavigationContainer>
-      <MainStack.Navigator
+      <RootStack.Navigator
         screenOptions={{
           headerTitleAlign: 'center',
         }}
       >
         {isSignedIn ? (
           <>
-            <MainStack.Screen
+            <RootStack.Screen
               name="Desk"
               component={Desk}
               options={{
@@ -41,11 +49,11 @@ function Navigation() {
                 ),
               }}
             />
-            <MainStack.Screen
+            <RootStack.Screen
               name="Column"
               component={Column}
               options={{
-                title: '??Column',
+                headerTitle: (props) => <ColumnTitle {...props} />,
                 headerRight: () => (
                   <TouchableOpacity>
                     <Settings
@@ -58,25 +66,25 @@ function Navigation() {
                 ),
               }}
             />
-            <MainStack.Screen name="Card" component={Card} />
+            <RootStack.Screen name="Card" component={Card} />
           </>
         ) : (
           <>
-            <MainStack.Screen
+            <RootStack.Screen
               name="Auth"
               component={Auth}
               options={{
                 title: 'Authorization',
                 headerRight: () => (
                   <TouchableOpacity onPress={() => setIsSignedIn(true)}>
-                    SignIn
+                    <Text>SignIn</Text>
                   </TouchableOpacity>
                 ),
               }}
             />
           </>
         )}
-      </MainStack.Navigator>
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 }
