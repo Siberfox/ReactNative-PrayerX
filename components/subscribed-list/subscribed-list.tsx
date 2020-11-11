@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import styles from './subscribed-list.styles';
 
-const SubscribedList = () => {
+const SubscribedList: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.titleWrapper}>

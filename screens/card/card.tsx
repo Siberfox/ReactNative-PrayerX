@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const Card = () => {
+const Card: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text>Card</Text>

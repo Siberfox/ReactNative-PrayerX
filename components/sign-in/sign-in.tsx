@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, TextInput } from 'react-native';
-import { Button } from 'react-native-paper';
+
+import CustomButton from '../custom-button/custom-button';
 
 import styles from './sign-in.styles';
 
-const SignIn = () => {
+const SignIn: React.FC = () => {
   return (
     <View style={styles.content}>
       <TextInput placeholder="Username" style={[styles.input]} />
@@ -13,13 +14,7 @@ const SignIn = () => {
         secureTextEntry
         style={[styles.input]}
       />
-      <Button
-        mode="contained"
-        onPress={() => alert('hi')}
-        style={styles.button}
-      >
-        Sign in
-      </Button>
+      <CustomButton text="Sign in" />
     </View>
   );
 };

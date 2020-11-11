@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import styles from './prayers-list.styles';
 
-const PrayersList = () => {
+const PrayersList: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.titleWrapper}>

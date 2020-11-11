@@ -14,10 +14,6 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: 'rgba(0, 0, 0, 0.08)',
   },
-  button: {
-    margin: 8,
-    backgroundColor: '#BFB393',
-  },
 });
 
 export default styles;

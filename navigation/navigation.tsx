@@ -21,7 +21,7 @@ export type RootStackParamList = {
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
-function Navigation() {
+const Navigation: React.FC = () => {
   const [isSignedIn, setIsSignedIn] = useState(true);
   return (
     <NavigationContainer>
@@ -83,6 +83,6 @@ function Navigation() {
       </RootStack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default Navigation;

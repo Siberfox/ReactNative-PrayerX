@@ -7,7 +7,7 @@ import SignUp from '../../components/sign-up/sign-up';
 
 const AuthTab = createMaterialTopTabNavigator();
 
-const Auth = () => {
+const Auth: React.FC = () => {
   return (
     <AuthTab.Navigator
       tabBarOptions={{
