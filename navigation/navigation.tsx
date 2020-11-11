@@ -53,6 +53,9 @@ function Navigation() {
               name="Column"
               component={Column}
               options={{
+                headerStyle: {
+                  borderBottomWidth: 0,
+                },
                 headerTitle: (props) => <ColumnTitle {...props} />,
                 headerRight: () => (
                   <TouchableOpacity>
@@ -73,14 +76,7 @@ function Navigation() {
             <RootStack.Screen
               name="Auth"
               component={Auth}
-              options={{
-                title: 'Authorization',
-                headerRight: () => (
-                  <TouchableOpacity onPress={() => setIsSignedIn(true)}>
-                    <Text>SignIn</Text>
-                  </TouchableOpacity>
-                ),
-              }}
+              options={{ headerShown: false }}
             />
           </>
         )}

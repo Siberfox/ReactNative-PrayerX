@@ -17,6 +17,7 @@ const style = StyleSheet.create({
   title: {
     fontSize: 17,
     lineHeight: 20,
+    fontWeight: '500',
   },
 });
 
