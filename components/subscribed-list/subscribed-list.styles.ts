@@ -5,16 +5,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: 17,
-    lineHeight: 20,
-  },
-  titleWrapper: {
-    width: '100%',
-    paddingVertical: 20,
+    justifyContent: 'flex-start',
   },
 });
 

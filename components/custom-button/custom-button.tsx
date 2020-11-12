@@ -4,9 +4,14 @@ import { Button } from 'react-native-paper';
 
 import styles from './custom-button.styles';
 
-const CustomButton: React.FC<{ text: string }> = ({ text }) => {
+interface CustomButtonProps {
+  text: string;
+  action?: () => void;
+}
+
+const CustomButton: React.FC<CustomButtonProps> = ({ text, action }) => {
   return (
-    <Button mode="contained" onPress={() => alert('hi')} style={styles.button}>
+    <Button mode="contained" onPress={action} style={styles.button}>
       {text}
     </Button>
   );

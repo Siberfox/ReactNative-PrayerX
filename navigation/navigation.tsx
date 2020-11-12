@@ -3,6 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity, Text } from 'react-native';
 
+import { useSelector } from 'react-redux';
+import { signedInSelector } from '../redux/slices/userSlice';
+
 import Desk from '../screens/desk/desk';
 import Card from '../screens/card/card';
 import Column from '../screens/column/column';
@@ -22,7 +25,8 @@ export type RootStackParamList = {
 const RootStack = createStackNavigator<RootStackParamList>();
 
 const Navigation: React.FC = () => {
-  const [isSignedIn, setIsSignedIn] = useState(true);
+  const isSignedIn = useSelector(signedInSelector);
+
   return (
     <NavigationContainer>
       <RootStack.Navigator
@@ -76,7 +80,7 @@ const Navigation: React.FC = () => {
             <RootStack.Screen
               name="Auth"
               component={Auth}
-              options={{ headerShown: false }}
+              options={{ title: 'Welcome' }}
             />
           </>
         )}
