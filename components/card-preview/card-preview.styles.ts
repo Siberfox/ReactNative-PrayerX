@@ -20,15 +20,26 @@ const styles = StyleSheet.create({
     height: 22,
   },
   cardText: {
+    width: '60%',
     fontSize: 17,
     lineHeight: 20,
   },
   cardIcons: {
-    width: '30%',
+    width: '32%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginLeft: 20,
+  },
+  cardLink: {
+    width: '90%',
+    height: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  icon: {
+    marginLeft: 8,
   },
 });
 

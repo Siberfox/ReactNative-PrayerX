@@ -1,21 +1,29 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
+
+import DescriptionList from '../../components/description-list/description-list';
+import MembersList from '../../components/members-list/members-list';
+
+import styles from './card.styles';
 
 const Card: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text>Card</Text>
+      <View style={styles.title}>
+        <Text style={styles.titleText}>
+          Prayer item two which is for my family to love God whole heartedly.
+        </Text>
+      </View>
+
+      <View style={styles.prayed}>
+        <View style={styles.prayedStatus}></View>
+        <Text style={styles.prayedText}>Last prayed 8 min ago</Text>
+      </View>
+
+      <DescriptionList />
+      <MembersList />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default Card;
