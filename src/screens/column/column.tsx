@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import SubscribedList from '../../components/subscribed-list/subscribed-list';

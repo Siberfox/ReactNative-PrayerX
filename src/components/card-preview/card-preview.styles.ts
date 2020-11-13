@@ -9,15 +9,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
+    backgroundColor: '#fff',
+    overflow: 'hidden',
+  },
+  swipeableContainer: {
+    width: '100%',
   },
   cardStatus: {
     width: 3,
     height: 20,
     backgroundColor: '#AC5253',
-  },
-  cardCheckbox: {
-    width: 22,
-    height: 22,
   },
   cardText: {
     width: '60%',
@@ -25,11 +26,12 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   cardIcons: {
-    width: '32%',
+    width: '30%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginLeft: 20,
+    marginRight: 10,
   },
   cardLink: {
     width: '90%',
@@ -40,6 +42,18 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginLeft: 8,
+  },
+  deleteButton: {
+    width: '30%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#AC5253',
+  },
+  deleteText: {
+    color: '#fff',
+    fontSize: 13,
+    lineHeight: 15,
   },
 });
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, TextInput} from 'react-native';
 import Plus from 'react-native-vector-icons/AntDesign';
 
@@ -8,6 +8,8 @@ import CardPreview from '../card-preview/card-preview';
 import styles from './prayers-list.styles';
 
 const PrayersList: React.FC = () => {
+  const [isShowAnswered, setIsShowAnswered] = useState(false);
+
   return (
     <View style={styles.container}>
       <View style={styles.inputSection}>
@@ -21,9 +23,18 @@ const PrayersList: React.FC = () => {
       <CardPreview />
       <CardPreview />
       <CardPreview />
-      <CustomButton text="Show Answered Prayers" />
-      <CardPreview />
-      <CardPreview />
+      <CustomButton
+        text={
+          isShowAnswered ? 'hide Answered Prayers' : 'Show Answered Prayers'
+        }
+        action={() => setIsShowAnswered(!isShowAnswered)}
+      />
+      {isShowAnswered ? (
+        <>
+          <CardPreview />
+          <CardPreview />
+        </>
+      ) : null}
     </View>
   );
 };
