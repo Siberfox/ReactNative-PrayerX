@@ -5,20 +5,29 @@ import {Avatar} from 'react-native-paper';
 
 import styles from './comments-item.styles';
 
-const CommentsItem = () => {
+interface CommentsItemProps {
+  item: {
+    id: string;
+    cardId: string;
+    name: string;
+    text: string;
+  };
+}
+
+const CommentsItem: React.FC<CommentsItemProps> = ({item}) => {
   return (
     <View style={styles.container}>
       <Avatar.Image
         size={35}
-        source={require('../../assets/eeww.png')}
+        source={require('../../assets/image.png')}
         style={styles.avatar}
       />
       <View>
         <View style={styles.titleSection}>
-          <Text style={styles.titleName}>Anna Barber</Text>
+          <Text style={styles.titleName}>{item.name}</Text>
           <Text style={styles.titleDate}>2 days ago</Text>
         </View>
-        <Text style={styles.text}>Hey, Hey!</Text>
+        <Text style={styles.text}>{item.text}</Text>
       </View>
     </View>
   );

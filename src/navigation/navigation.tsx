@@ -19,7 +19,17 @@ import Hands from 'react-native-vector-icons/FontAwesome5';
 export type RootStackParamList = {
   Desk: undefined;
   Column: {columnId: string; columnName: string};
-  Card: undefined;
+  Card: {
+    item: {
+      id: string;
+      name: string;
+      columnId: string;
+      checked: boolean;
+      subscribed: number;
+      prayedByMe: number;
+      prayedByOthers: number;
+    };
+  };
   Auth: undefined;
 };
 

@@ -11,7 +11,19 @@ import Hands from 'react-native-vector-icons/FontAwesome5';
 
 import styles from './card-preview.styles';
 
-const CardPreview: React.FC = () => {
+interface CardPreviewProps {
+  item: {
+    id: string;
+    name: string;
+    columnId: string;
+    checked: boolean;
+    subscribed: number;
+    prayedByMe: number;
+    prayedByOthers: number;
+  };
+}
+
+const CardPreview: React.FC<CardPreviewProps> = ({item}) => {
   const [checked, setChecked] = useState(false);
   const navigation = useNavigation();
 
@@ -26,7 +38,8 @@ const CardPreview: React.FC = () => {
   return (
     <Swipeable
       renderRightActions={renderLeftActions}
-      childrenContainerStyle={styles.swipeableContainer}>
+      containerStyle={styles.swipeableContainer}
+      childrenContainerStyle={styles.swipeableChildContainer}>
       <View style={styles.cardPreview}>
         <View style={styles.cardStatus} />
         <Checkbox
@@ -39,20 +52,20 @@ const CardPreview: React.FC = () => {
 
         <TouchableOpacity
           style={styles.cardLink}
-          onPress={() => navigation.navigate('Card')}>
+          onPress={() => navigation.navigate('Card', {item: item})}>
           <Text style={styles.cardText} numberOfLines={1}>
-            Prayer item two which is for my family to love God whole heartedly.
+            {item.name}
           </Text>
           <View style={styles.cardIcons}>
             <User style={styles.icon} name="user" size={22} color="#72A8BC" />
-            <Text>3</Text>
+            <Text>{item.subscribed}</Text>
             <Hands
               style={styles.icon}
               name="praying-hands"
               size={22}
               color="#72A8BC"
             />
-            <Text>120</Text>
+            <Text>{item.prayedByMe + item.prayedByOthers}</Text>
           </View>
         </TouchableOpacity>
       </View>

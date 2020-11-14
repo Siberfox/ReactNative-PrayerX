@@ -1,9 +1,9 @@
-import {createSlice, PayloadAction, createSelector} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Comments} from '../data';
 
 interface CommentsState {
-  id: number;
-  cardId: number;
+  id: string;
+  cardId: string;
   name: string;
   text: string;
 }
@@ -14,7 +14,7 @@ const commentsSlice = createSlice({
   name: 'comments',
   initialState,
   reducers: {
-    addComment: (state, action: PayloadAction<[number, string, string]>) => {
+    addComment: (state, action: PayloadAction<[string, string, string]>) => {
       const [id, value, username] = action.payload;
       return [
         ...state,
@@ -27,7 +27,7 @@ const commentsSlice = createSlice({
       ];
     },
 
-    editComment: (state, action: PayloadAction<[number, string]>) => {
+    editComment: (state, action: PayloadAction<[string, string]>) => {
       const [id, value] = action.payload;
       return state.map((item) => {
         if (item.id === id) {
@@ -37,7 +37,7 @@ const commentsSlice = createSlice({
       });
     },
 
-    deleteComment: (state, action: PayloadAction<number>) => {
+    deleteComment: (state, action: PayloadAction<string>) => {
       return state.filter((item) => item.id !== action.payload);
     },
   },
@@ -49,8 +49,3 @@ export default commentsSlice.reducer;
 
 export const commentsSelector = (state: {comments: CommentsState[]}) =>
   state.comments;
-
-export const cardCommentsSelector = (id: number) =>
-  createSelector([commentsSelector], (comments: CommentsState[]) =>
-    comments.filter((item) => item.cardId === id),
-  );

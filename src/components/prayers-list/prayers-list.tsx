@@ -1,14 +1,22 @@
 import React, {useState} from 'react';
-import {View, TextInput} from 'react-native';
+import {View, TextInput, FlatList} from 'react-native';
 import Plus from 'react-native-vector-icons/AntDesign';
+
+import {useSelector} from 'react-redux';
+import {columnCardsSelector} from '../../redux/slices/cardsSlice';
 
 import CustomButton from '../custom-button/custom-button';
 import CardPreview from '../card-preview/card-preview';
 
 import styles from './prayers-list.styles';
 
-const PrayersList: React.FC = () => {
+interface PrayersListProps {
+  columnId: string;
+}
+
+const PrayersList: React.FC<PrayersListProps> = ({columnId}) => {
   const [isShowAnswered, setIsShowAnswered] = useState(false);
+  const cards = useSelector(columnCardsSelector(columnId));
 
   return (
     <View style={styles.container}>
@@ -20,9 +28,13 @@ const PrayersList: React.FC = () => {
           style={[styles.input]}
         />
       </View>
-      <CardPreview />
-      <CardPreview />
-      <CardPreview />
+      <FlatList
+        style={styles.cardList}
+        data={cards}
+        renderItem={({item}) => <CardPreview item={item} />}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.cardListContainer}
+      />
       <CustomButton
         text={
           isShowAnswered ? 'hide Answered Prayers' : 'Show Answered Prayers'
@@ -30,10 +42,13 @@ const PrayersList: React.FC = () => {
         action={() => setIsShowAnswered(!isShowAnswered)}
       />
       {isShowAnswered ? (
-        <>
-          <CardPreview />
-          <CardPreview />
-        </>
+        <FlatList
+          style={styles.cardList}
+          contentContainerStyle={styles.cardListContainer}
+          data={cards}
+          renderItem={({item}) => <CardPreview item={item} />}
+          keyExtractor={(item) => item.id}
+        />
       ) : null}
     </View>
   );

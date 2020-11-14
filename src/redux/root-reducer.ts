@@ -13,6 +13,8 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 
+AsyncStorage.clear();
+
 const rootReducer = combineReducers({
   cards: cardsReducer,
   comments: commentsReducer,

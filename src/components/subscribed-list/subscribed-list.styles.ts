@@ -7,6 +7,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+  cardList: {
+    width: '100%',
+    flexGrow: 0,
+    flexShrink: 0,
+  },
+  cardListContainer: {
+    width: '100%',
+    alignItems: 'center',
+  },
 });
 
 export default styles;

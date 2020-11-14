@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
   swipeableContainer: {
     width: '100%',
   },
+  swipeableChildContainer: {
+    width: '100%',
+  },
   cardStatus: {
     width: 3,
     height: 20,

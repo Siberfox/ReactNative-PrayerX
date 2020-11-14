@@ -3,7 +3,15 @@ import {View, Text} from 'react-native';
 
 import styles from './description-list.styles';
 
-const DescriptionList: React.FC = () => {
+interface DescriptionList {
+  prayedByMe: number;
+  prayedByOthers: number;
+}
+
+const DescriptionList: React.FC<DescriptionList> = ({
+  prayedByMe,
+  prayedByOthers,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.block}>
@@ -13,18 +21,18 @@ const DescriptionList: React.FC = () => {
       </View>
 
       <View style={styles.block}>
-        <Text style={styles.title}>123</Text>
+        <Text style={styles.title}>{prayedByMe + prayedByOthers}</Text>
         <Text style={styles.text}>Times Prayed Total</Text>
       </View>
 
       <View style={styles.block}>
-        <Text style={styles.title}>63</Text>
-        <Text style={styles.text}>Times Prayed Total</Text>
+        <Text style={styles.title}>{prayedByMe}</Text>
+        <Text style={styles.text}>Times Prayed by Me</Text>
       </View>
 
       <View style={styles.block}>
-        <Text style={styles.title}>60</Text>
-        <Text style={styles.text}>Times Prayed Total</Text>
+        <Text style={styles.title}>{prayedByOthers}</Text>
+        <Text style={styles.text}>Times Prayed by Others</Text>
       </View>
     </View>
   );

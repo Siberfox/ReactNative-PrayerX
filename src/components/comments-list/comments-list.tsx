@@ -1,19 +1,31 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {View, Text, TextInput} from 'react-native';
 
-import CommentsItem from '../comments-item/comments-item';
+import {useSelector} from 'react-redux';
+import {commentsSelector} from '../../redux/slices/commentsSlice';
 
+import CommentsItem from '../comments-item/comments-item';
 import Message from 'react-native-vector-icons/Feather';
 
 import styles from './comments-list.styles';
 
-const CommentsList = () => {
+interface CommentsListProps {
+  cardId: string;
+}
+
+const CommentsList: React.FC<CommentsListProps> = ({cardId}) => {
+  const comments = useSelector(commentsSelector);
+  const cardComments = useMemo(
+    () => comments.filter((item) => item.cardId === cardId),
+    [comments, cardId],
+  );
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>COMMENTS</Text>
-      <CommentsItem />
-      <CommentsItem />
-      <CommentsItem />
+      {cardComments.map((item) => (
+        <CommentsItem key={item.id} item={item} />
+      ))}
       <View style={styles.inputSection}>
         <Message
           name="message-square"

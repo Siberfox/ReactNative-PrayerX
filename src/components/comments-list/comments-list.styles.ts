@@ -33,6 +33,9 @@ const styles = StyleSheet.create({
     fontSize: 17,
     lineHeight: 20,
   },
+  cardList: {
+    width: '100%',
+  },
 });
 
 export default styles;
