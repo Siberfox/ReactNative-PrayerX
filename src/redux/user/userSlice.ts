@@ -5,6 +5,7 @@ interface UserState {
   token: string;
   name: string;
   error: string;
+  isLoading: boolean;
 }
 
 const initialState: UserState = {
@@ -12,6 +13,7 @@ const initialState: UserState = {
   name: '',
   token: '',
   error: '',
+  isLoading: false,
 };
 
 export const signInStart = createAction<{
@@ -38,24 +40,33 @@ const userSlice = createSlice({
         signedIn: true,
         token,
         name,
+        isLoading: false,
       };
     },
     signInFailure: (state, action: PayloadAction<string>) => {
       return {
         ...state,
         error: action.payload,
+        isLoading: false,
       };
     },
     signUpFailure: (state, action: PayloadAction<string>) => {
       return {
         ...state,
         error: action.payload,
+        isLoading: false,
       };
     },
     errorClear: (state) => {
       return {
         ...state,
         error: '',
+      };
+    },
+    setLoading: (state) => {
+      return {
+        ...state,
+        isLoading: true,
       };
     },
   },
@@ -66,6 +77,7 @@ export const {
   signInFailure,
   signUpFailure,
   errorClear,
+  setLoading,
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -76,3 +88,6 @@ export const signedInSelector = (state: {user: UserState}) =>
 export const errorSelector = (state: {user: UserState}) => state.user.error;
 
 export const usernameSelector = (state: {user: UserState}) => state.user.name;
+
+export const isLoadingSelector = (state: {user: UserState}) =>
+  state.user.isLoading;

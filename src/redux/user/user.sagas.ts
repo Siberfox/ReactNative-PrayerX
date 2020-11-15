@@ -8,6 +8,7 @@ import {
   signInSuccess,
   signInFailure,
   signUpFailure,
+  setLoading,
 } from './userSlice';
 
 const baseURL = 'http://trello-purrweb.herokuapp.com';
@@ -15,6 +16,7 @@ const baseURL = 'http://trello-purrweb.herokuapp.com';
 export function* signIn({payload}) {
   const {email, password} = payload;
   try {
+    yield put(setLoading());
     const response = yield axios({
       method: 'post',
       url: `${baseURL}/auth/sign-in`,
@@ -36,6 +38,7 @@ export function* signIn({payload}) {
 export function* signUp({payload}) {
   const {email, username, password} = payload;
   try {
+    yield put(setLoading());
     const response = yield axios({
       method: 'post',
       url: `${baseURL}/auth/sign-up`,

@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, TextInput, Alert} from 'react-native';
+import {View, TextInput, Alert, ActivityIndicator} from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {
   signUpStart,
   errorSelector,
   errorClear,
+  isLoadingSelector,
 } from '../../redux/user/userSlice';
 
 import CustomButton from '../custom-button/custom-button';
@@ -18,6 +19,7 @@ const SignUp: React.FC = () => {
   const [passwordValue, setPasswordValue] = useState('');
   const dispatch = useDispatch();
   const error = useSelector(errorSelector);
+  const isLoading = useSelector(isLoadingSelector);
 
   useEffect(() => {
     if (error) {
@@ -43,26 +45,32 @@ const SignUp: React.FC = () => {
 
   return (
     <View style={styles.content}>
-      <TextInput
-        placeholder="Email"
-        style={[styles.input]}
-        onChangeText={(text) => setEmailValue(text)}
-        value={emailValue}
-      />
-      <TextInput
-        placeholder="Username"
-        style={[styles.input]}
-        onChangeText={(text) => setUsernameValue(text)}
-        value={usernameValue}
-      />
-      <TextInput
-        placeholder="Password"
-        secureTextEntry
-        style={[styles.input]}
-        onChangeText={(text) => setPasswordValue(text)}
-        value={passwordValue}
-      />
-      <CustomButton text="Sign Up" action={onSignIn} />
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#72A8BC" />
+      ) : (
+        <>
+          <TextInput
+            placeholder="Email"
+            style={[styles.input]}
+            onChangeText={(text) => setEmailValue(text)}
+            value={emailValue}
+          />
+          <TextInput
+            placeholder="Username"
+            style={[styles.input]}
+            onChangeText={(text) => setUsernameValue(text)}
+            value={usernameValue}
+          />
+          <TextInput
+            placeholder="Password"
+            secureTextEntry
+            style={[styles.input]}
+            onChangeText={(text) => setPasswordValue(text)}
+            value={passwordValue}
+          />
+          <CustomButton text="Sign Up" action={onSignIn} />
+        </>
+      )}
     </View>
   );
 };
