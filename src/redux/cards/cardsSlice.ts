@@ -23,7 +23,7 @@ const cardsSlice = createSlice({
         ...state,
         {
           name: value,
-          id: state[state.length - 1].id + 1,
+          id: state[state.length - 1].id + 1 + '',
           columnId: id,
           checked: false,
           subscribed: 0,
@@ -33,46 +33,34 @@ const cardsSlice = createSlice({
       ];
     },
 
-    deleteCard: (state, action: PayloadAction<string>) =>
-      state.filter((item) => item.id !== action.payload),
-
-    editCardName: (state, action: PayloadAction<[string, string]>) => {
-      const [id, value] = action.payload;
-      return state.map((item) => {
-        if (item.id === id) {
-          return {...item, name: value};
-        }
-        return item;
-      });
-    },
-
-    addDescription: (state, action: PayloadAction<[string, string]>) => {
-      const [id, value] = action.payload;
-      return state.map((item) => {
-        if (item.id === id) {
-          return {...item, description: value};
-        }
-        return item;
-      });
-    },
-
-    deleteDescription: (state, action: PayloadAction<string>) => {
+    addCardPrayed: (state, action: PayloadAction<string>) => {
       return state.map((item) => {
         if (item.id === action.payload) {
-          return {...item, description: ''};
+          return {...item, prayedByMe: item.prayedByMe + 1};
         }
         return item;
       });
     },
+
+    checkCard: (state, action: PayloadAction<string>) => {
+      return state.map((item) => {
+        if (item.id === action.payload) {
+          return {...item, checked: !item.checked};
+        }
+        return item;
+      });
+    },
+
+    deleteCard: (state, action: PayloadAction<string>) =>
+      state.filter((item) => item.id !== action.payload),
   },
 });
 
 export const {
   addCard,
-  addDescription,
   deleteCard,
-  deleteDescription,
-  editCardName,
+  addCardPrayed,
+  checkCard,
 } = cardsSlice.actions;
 
 export default cardsSlice.reducer;

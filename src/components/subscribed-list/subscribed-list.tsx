@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {View, FlatList} from 'react-native';
 
 import {useSelector} from 'react-redux';
-import {columnCardsSelector} from '../../redux/slices/cardsSlice';
+import {columnCardsSelector} from '../../redux/cards/cardsSlice';
 
 import CustomButton from '../custom-button/custom-button';
 import CardPreview from '../card-preview/card-preview';
@@ -16,13 +16,21 @@ interface SubscribedListProps {
 const SubscribedList: React.FC<SubscribedListProps> = ({columnId}) => {
   const [isShowAnswered, setIsShowAnswered] = useState(false);
   const cards = useSelector(columnCardsSelector(columnId));
+  const uncheckedCards = useMemo(
+    () => cards.filter((item) => item.checked !== true),
+    [cards],
+  );
+  const checkedCards = useMemo(
+    () => cards.filter((item) => item.checked === true),
+    [cards],
+  );
 
   return (
     <View style={styles.container}>
       <FlatList
         style={styles.cardList}
         contentContainerStyle={styles.cardListContainer}
-        data={cards}
+        data={uncheckedCards}
         renderItem={({item}) => <CardPreview item={item} />}
         keyExtractor={(item) => item.id}
       />
@@ -36,7 +44,7 @@ const SubscribedList: React.FC<SubscribedListProps> = ({columnId}) => {
         <FlatList
           style={styles.cardList}
           contentContainerStyle={styles.cardListContainer}
-          data={cards}
+          data={checkedCards}
           renderItem={({item}) => <CardPreview item={item} />}
           keyExtractor={(item) => item.id}
         />

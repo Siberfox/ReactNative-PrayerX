@@ -4,31 +4,23 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {TouchableOpacity} from 'react-native';
 
 import {useSelector} from 'react-redux';
-import {signedInSelector} from '../redux/slices/userSlice';
+import {signedInSelector} from '../redux/user/userSlice';
 
 import Desk from '../screens/desk/desk';
 import Card from '../screens/card/card';
 import Column from '../screens/column/column';
 import Auth from '../screens/auth/auth';
 import ColumnTitle from '../components/column-title/column-title';
+import PrayedButton from '../components/prayed-button/prayed-button';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 import Settings from 'react-native-vector-icons/Feather';
-import Hands from 'react-native-vector-icons/FontAwesome5';
 
 export type RootStackParamList = {
   Desk: undefined;
   Column: {columnId: string; columnName: string};
   Card: {
-    item: {
-      id: string;
-      name: string;
-      columnId: string;
-      checked: boolean;
-      subscribed: number;
-      prayedByMe: number;
-      prayedByOthers: number;
-    };
+    cardId: string;
   };
   Auth: undefined;
 };
@@ -111,16 +103,7 @@ const Navigation: React.FC = () => {
                   shadowOpacity: 0,
                 },
                 headerTitle: () => null,
-                headerRight: () => (
-                  <TouchableOpacity>
-                    <Hands
-                      name="praying-hands"
-                      size={25}
-                      color="#fff"
-                      style={{marginRight: 15}}
-                    />
-                  </TouchableOpacity>
-                ),
+                headerRight: () => <PrayedButton />,
                 headerLeft: () => <BackArrow />,
               }}
             />

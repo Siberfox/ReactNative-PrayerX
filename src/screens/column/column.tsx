@@ -13,7 +13,7 @@ import {Badge} from 'react-native-paper';
 const Tab = createMaterialTopTabNavigator();
 
 const Column: React.FC = () => {
-  const route = useRoute<RouteProp<RootStackParamList, 'Card'>>();
+  const route = useRoute<RouteProp<RootStackParamList, 'Column'>>();
   const {columnId} = route.params;
 
   return (

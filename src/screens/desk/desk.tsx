@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, FlatList, TouchableOpacity} from 'react-native';
 
 import {useSelector} from 'react-redux';
-import {columnsSelector} from '../../redux/slices/columnsSlice';
+import {columnsSelector} from '../../redux/columns/columnsSlice';
 import {useNavigation} from '@react-navigation/native';
 
 import styles from './desk.styles';

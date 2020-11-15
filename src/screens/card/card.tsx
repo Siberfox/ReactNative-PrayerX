@@ -1,5 +1,8 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Text, View, ScrollView} from 'react-native';
+
+import {useSelector} from 'react-redux';
+import {cardsSelector} from '../../redux/cards/cardsSlice';
 
 import {useRoute, RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../../navigation/navigation';
@@ -12,13 +15,18 @@ import styles from './card.styles';
 
 const Card: React.FC = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'Card'>>();
-  const {item} = route.params;
+  const {cardId} = route.params;
+  const cards = useSelector(cardsSelector);
+  const card = useMemo(() => cards.filter((item) => item.id === cardId)[0], [
+    cards,
+    cardId,
+  ]);
 
   return (
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.title}>
-          <Text style={styles.titleText}>{item.name}</Text>
+          <Text style={styles.titleText}>{card.name}</Text>
         </View>
 
         <View style={styles.prayed}>
@@ -27,11 +35,11 @@ const Card: React.FC = () => {
         </View>
 
         <DescriptionList
-          prayedByMe={item.prayedByMe}
-          prayedByOthers={item.prayedByOthers}
+          prayedByMe={card.prayedByMe}
+          prayedByOthers={card.prayedByOthers}
         />
         <MembersList />
-        <CommentsList cardId={item.id} />
+        <CommentsList cardId={card.id} />
       </View>
     </ScrollView>
   );

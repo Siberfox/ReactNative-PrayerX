@@ -1,9 +1,9 @@
 import {all, call} from 'redux-saga/effects';
 
-import {userSagas} from './sagas/user.sagas';
-import {cardsSagas} from './sagas/cards.sagas';
-import {commentsSagas} from './sagas/comments.sagas';
-import {columnsSagas} from './sagas/columns.sagas';
+import {userSagas} from './user/user.sagas';
+import {cardsSagas} from './cards/cards.sagas';
+import {commentsSagas} from './comments/comments.sagas';
+import {columnsSagas} from './columns/columns.sagas';
 
 export default function* rootSaga() {
   yield all([

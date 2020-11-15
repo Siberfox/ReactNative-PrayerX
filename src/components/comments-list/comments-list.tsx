@@ -1,8 +1,9 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 import {View, Text, TextInput} from 'react-native';
 
-import {useSelector} from 'react-redux';
-import {commentsSelector} from '../../redux/slices/commentsSlice';
+import {useSelector, useDispatch} from 'react-redux';
+import {commentsSelector, addComment} from '../../redux/comments/commentsSlice';
+import {usernameSelector} from '../../redux/user/userSlice';
 
 import CommentsItem from '../comments-item/comments-item';
 import Message from 'react-native-vector-icons/Feather';
@@ -14,11 +15,22 @@ interface CommentsListProps {
 }
 
 const CommentsList: React.FC<CommentsListProps> = ({cardId}) => {
+  const [commentValue, setCommentValue] = useState('');
+  const user = useSelector(usernameSelector);
+  const dispatch = useDispatch();
+
   const comments = useSelector(commentsSelector);
   const cardComments = useMemo(
     () => comments.filter((item) => item.cardId === cardId),
     [comments, cardId],
   );
+
+  const onAddComment = () => {
+    if (commentValue) {
+      dispatch(addComment([cardId, commentValue, user]));
+      setCommentValue('');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -37,6 +49,9 @@ const CommentsList: React.FC<CommentsListProps> = ({cardId}) => {
           underlineColorAndroid="transparent"
           placeholder="Add a comment..."
           style={[styles.input]}
+          onChangeText={(text) => setCommentValue(text)}
+          value={commentValue}
+          onSubmitEditing={onAddComment}
         />
       </View>
     </View>

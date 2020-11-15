@@ -10,16 +10,28 @@ import {
   REGISTER,
 } from 'redux-persist';
 
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './root.sagas';
+
 import persistedReducer from './root-reducer';
 
-const store = configureStore({
-  reducer: persistedReducer,
-  middleware: getDefaultMiddleware({
+const sagaMiddleware = createSagaMiddleware();
+
+const middleware = [
+  sagaMiddleware,
+  ...getDefaultMiddleware({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
+];
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: middleware,
 });
+
+sagaMiddleware.run(rootSaga);
 
 export type AppDispatch = typeof store.dispatch;
 

@@ -28,6 +28,12 @@ const styles = StyleSheet.create({
     fontSize: 17,
     lineHeight: 20,
   },
+  cardTextChecked: {
+    width: '60%',
+    fontSize: 17,
+    lineHeight: 20,
+    textDecorationLine: 'line-through',
+  },
   cardIcons: {
     width: '30%',
     flexDirection: 'row',

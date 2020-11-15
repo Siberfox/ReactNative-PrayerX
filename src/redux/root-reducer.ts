@@ -2,10 +2,10 @@ import {combineReducers} from '@reduxjs/toolkit';
 import {persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import commentsReducer from './slices/commentsSlice';
-import columnsReducer from './slices/columnsSlice';
-import userReducer from './slices/userSlice';
-import cardsReducer from './slices/cardsSlice';
+import commentsReducer from './comments/commentsSlice';
+import columnsReducer from './columns/columnsSlice';
+import userReducer from './user/userSlice';
+import cardsReducer from './cards/cardsSlice';
 
 const persistConfig = {
   key: 'root',
