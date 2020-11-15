@@ -3,8 +3,9 @@ import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {TouchableOpacity} from 'react-native';
 
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {signedInSelector} from '../redux/user/userSlice';
+import {editStart} from '../redux/columns/columnsSlice';
 
 import Desk from '../screens/desk/desk';
 import Card from '../screens/card/card';
@@ -27,6 +28,7 @@ export type RootStackParamList = {
 
 const BackArrow = () => {
   const navigation = useNavigation();
+
   return (
     <TouchableOpacity>
       <Icon
@@ -44,6 +46,7 @@ const RootStack = createStackNavigator<RootStackParamList>();
 
 const Navigation: React.FC = () => {
   const isSignedIn = useSelector(signedInSelector);
+  const dispatch = useDispatch();
 
   return (
     <NavigationContainer>
@@ -59,7 +62,7 @@ const Navigation: React.FC = () => {
               options={{
                 title: 'My Desk',
                 headerRight: () => (
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => dispatch(editStart())}>
                     <Icon
                       name="plus"
                       size={28}

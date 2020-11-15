@@ -43,7 +43,7 @@ const PrayersList: React.FC<PrayersListProps> = ({columnId}) => {
         <TextInput
           underlineColorAndroid="transparent"
           placeholder="Add a prayer..."
-          style={[styles.input]}
+          style={styles.input}
           onChangeText={(text) => setInputValue(text)}
           value={inputValue}
           onSubmitEditing={onAddCard}
