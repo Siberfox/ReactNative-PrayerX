@@ -21,10 +21,13 @@ const columnsSlice = createSlice({
         return item;
       });
     },
+    deleteColumn: (state, action: PayloadAction<string>) => {
+      return state.filter((item) => item.id !== action.payload);
+    },
   },
 });
 
-export const {editColumnName} = columnsSlice.actions;
+export const {editColumnName, deleteColumn} = columnsSlice.actions;
 
 export default columnsSlice.reducer;
 
