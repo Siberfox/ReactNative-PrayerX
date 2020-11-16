@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {useRoute, RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../../navigation/navigation';
+
+import {useDispatch} from 'react-redux';
+import {getCardsStart} from '../../redux/cards/cardsSlice';
 
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
@@ -10,11 +13,18 @@ import PrayersList from '../../components/prayers-list/prayers-list';
 
 import {Badge} from 'react-native-paper';
 
+import styles from './column.styles';
+
 const Tab = createMaterialTopTabNavigator();
 
 const Column: React.FC = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'Column'>>();
   const {columnId} = route.params;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCardsStart());
+  }, [dispatch]);
 
   return (
     <Tab.Navigator
@@ -40,9 +50,7 @@ const Column: React.FC = () => {
         options={{
           tabBarLabel: 'SUBSCRIBED',
           tabBarIcon: () => (
-            <Badge
-              visible={true}
-              style={{backgroundColor: '#AC5253', fontSize: 9}}>
+            <Badge visible={true} style={styles.badge}>
               3
             </Badge>
           ),

@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction, createAction} from '@reduxjs/toolkit';
 import {Comments} from '../data';
 
 interface CommentsState {
@@ -9,6 +9,8 @@ interface CommentsState {
 }
 
 const initialState: CommentsState[] = Comments;
+
+export const getCommentsStart = createAction('GET_COMMENTS_START');
 
 const commentsSlice = createSlice({
   name: 'comments',
@@ -27,6 +29,10 @@ const commentsSlice = createSlice({
       ];
     },
 
+    setComments: (state, action: PayloadAction<CommentsState[]>) => {
+      return [...action.payload];
+    },
+
     editComment: (state, action: PayloadAction<[string, string]>) => {
       const [id, value] = action.payload;
       return state.map((item) => {
@@ -43,7 +49,12 @@ const commentsSlice = createSlice({
   },
 });
 
-export const {addComment, editComment, deleteComment} = commentsSlice.actions;
+export const {
+  addComment,
+  editComment,
+  deleteComment,
+  setComments,
+} = commentsSlice.actions;
 
 export default commentsSlice.reducer;
 

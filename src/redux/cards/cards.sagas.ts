@@ -1,19 +1,47 @@
-import {all, call, takeLatest, put} from 'redux-saga/effects';
+import {all, call, takeLatest} from 'redux-saga/effects';
+import {PayloadAction} from '@reduxjs/toolkit';
 
-import {addCard, addCardPrayed, deleteCard} from './cardsSlice';
+import {addCard, deleteCard, setCards, getCardsStart} from './cardsSlice';
 
-export function* addCardRequest() {}
+import {
+  addCardApi,
+  deleteCardApi,
+  getCardsApi,
+} from '../../services/apiServices';
 
-export function* addPrayedRequest() {}
+export function* addCardRequest(action: PayloadAction<[string, string]>) {
+  const [id, value] = action.payload;
+  try {
+    yield addCardApi(value, id);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
-export function* deleteCardRequest() {}
+export function* deleteCardRequest(action: PayloadAction<string>) {
+  try {
+    yield deleteCardApi(action.payload);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* getCardsData() {
+  try {
+    const response = yield getCardsApi();
+    console.log(response);
+    yield setCards(response);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* onGetCardsData() {
+  yield takeLatest(getCardsStart, getCardsData);
+}
 
 export function* onAddCard() {
   yield takeLatest(addCard, addCardRequest);
-}
-
-export function* onAddPrayed() {
-  yield takeLatest(addCardPrayed, addPrayedRequest);
 }
 
 export function* onDeleteCard() {
@@ -21,5 +49,5 @@ export function* onDeleteCard() {
 }
 
 export function* cardsSagas() {
-  yield all([call(onAddCard), call(onAddPrayed), call(onDeleteCard)]);
+  yield all([call(onAddCard), call(onDeleteCard), call(onGetCardsData)]);
 }

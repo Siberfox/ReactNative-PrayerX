@@ -1,7 +1,6 @@
 import {createSlice, PayloadAction, createAction} from '@reduxjs/toolkit';
 
 interface UserState {
-  signedIn: boolean;
   token: string;
   name: string;
   error: string;
@@ -9,7 +8,6 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  signedIn: false,
   name: '',
   token: '',
   error: '',
@@ -33,19 +31,11 @@ const userSlice = createSlice({
     signInSuccess: (state, action: PayloadAction<string>) => {
       return {
         ...state,
-        signedIn: true,
         name: action.payload,
         isLoading: false,
       };
     },
-    signInFailure: (state, action: PayloadAction<string>) => {
-      return {
-        ...state,
-        error: action.payload,
-        isLoading: false,
-      };
-    },
-    signUpFailure: (state, action: PayloadAction<string>) => {
+    requestFailure: (state, action: PayloadAction<string>) => {
       return {
         ...state,
         error: action.payload,
@@ -69,16 +59,12 @@ const userSlice = createSlice({
 
 export const {
   signInSuccess,
-  signInFailure,
-  signUpFailure,
+  requestFailure,
   errorClear,
   setLoading,
 } = userSlice.actions;
 
 export default userSlice.reducer;
-
-export const signedInSelector = (state: {user: UserState}) =>
-  state.user.signedIn;
 
 export const errorSelector = (state: {user: UserState}) => state.user.error;
 

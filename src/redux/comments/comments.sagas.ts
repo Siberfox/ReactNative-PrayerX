@@ -1,25 +1,64 @@
-import {all, call, takeLatest, put} from 'redux-saga/effects';
+import {all, call, takeLatest} from 'redux-saga/effects';
+import {PayloadAction} from '@reduxjs/toolkit';
 
-import {addComment, editComment, deleteComment} from './commentsSlice';
+import {
+  addComment,
+  deleteComment,
+  setComments,
+  getCommentsStart,
+} from './commentsSlice';
 
-export function* addCommentRequest() {}
+import {
+  addCommentApi,
+  deleteCommentApi,
+  getCommentsApi,
+} from '../../services/apiServices';
 
-export function* editCommentRequest() {}
+export function* addCommentRequest(
+  action: PayloadAction<[string, string, string]>,
+) {
+  const [id, value, username] = action.payload;
+  try {
+    yield addCommentApi(username, value, id);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
-export function* deleteCommentRequest() {}
+export function* deleteCommentRequest(action: PayloadAction<string>) {
+  try {
+    yield deleteCommentApi(action.payload);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* getCommentsData() {
+  try {
+    const response = yield getCommentsApi();
+    console.log(response);
+    yield setComments(response);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* onGetCommentsData() {
+  yield takeLatest(getCommentsStart, getCommentsData);
+}
 
 export function* onAddComment() {
   yield takeLatest(addComment, addCommentRequest);
-}
-
-export function* onEditComment() {
-  yield takeLatest(editComment, editCommentRequest);
 }
 
 export function* onDeleteComment() {
   yield takeLatest(deleteComment, deleteCommentRequest);
 }
 
-export function* cardsSagas() {
-  yield all([call(onAddComment), call(onEditComment), call(onDeleteComment)]);
+export function* commentsSagas() {
+  yield all([
+    call(onAddComment),
+    call(onDeleteComment),
+    call(onGetCommentsData),
+  ]);
 }

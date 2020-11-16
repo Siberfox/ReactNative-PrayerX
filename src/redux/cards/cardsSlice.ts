@@ -1,4 +1,9 @@
-import {createSlice, PayloadAction, createSelector} from '@reduxjs/toolkit';
+import {
+  createSlice,
+  PayloadAction,
+  createSelector,
+  createAction,
+} from '@reduxjs/toolkit';
 import {Cards} from '../data';
 
 interface CardsState {
@@ -12,6 +17,8 @@ interface CardsState {
 }
 
 const initialState: CardsState[] = Cards;
+
+export const getCardsStart = createAction('GET_CARDS_START');
 
 const cardsSlice = createSlice({
   name: 'cards',
@@ -31,6 +38,10 @@ const cardsSlice = createSlice({
           prayedByOthers: 0,
         },
       ];
+    },
+
+    setCards: (state, action: PayloadAction<CardsState[]>) => {
+      return [...action.payload];
     },
 
     addCardPrayed: (state, action: PayloadAction<string>) => {
@@ -61,6 +72,7 @@ export const {
   deleteCard,
   addCardPrayed,
   checkCard,
+  setCards,
 } = cardsSlice.actions;
 
 export default cardsSlice.reducer;

@@ -1,5 +1,5 @@
-import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import {PayloadAction} from '@reduxjs/toolkit';
 
 import {takeLatest, put, all, call} from 'redux-saga/effects';
 
@@ -7,25 +7,19 @@ import {
   signInStart,
   signUpStart,
   signInSuccess,
-  signInFailure,
-  signUpFailure,
+  requestFailure,
   setLoading,
 } from './userSlice';
 
-const baseURL = 'http://trello-purrweb.herokuapp.com';
+import {signInRequest, signUpRequest} from '../../services/authServices';
 
-export function* signIn({payload}) {
-  const {email, password} = payload;
+export function* signIn(
+  action: PayloadAction<{email: string; password: string}>,
+) {
+  const {email, password} = action.payload;
   try {
     yield put(setLoading());
-    const response = yield axios({
-      method: 'post',
-      url: `${baseURL}/auth/sign-in`,
-      data: {
-        email,
-        password,
-      },
-    });
+    const response = yield signInRequest(email, password);
     const {name, token} = response.data;
     if (response.data.message) {
       throw new Error('Wrong email or password');
@@ -33,23 +27,17 @@ export function* signIn({payload}) {
     yield AsyncStorage.setItem('token', token);
     yield put(signInSuccess(name));
   } catch (error) {
-    yield put(signInFailure(error.message));
+    yield put(requestFailure(error.message));
   }
 }
 
-export function* signUp({payload}) {
-  const {email, username, password} = payload;
+export function* signUp(
+  action: PayloadAction<{email: string; password: string; username: string}>,
+) {
+  const {email, username, password} = action.payload;
   try {
     yield put(setLoading());
-    const response = yield axios({
-      method: 'post',
-      url: `${baseURL}/auth/sign-up`,
-      data: {
-        email,
-        name: username,
-        password,
-      },
-    });
+    const response = yield signUpRequest(email, username, password);
     const {name, token} = response.data;
     if (response.data.message) {
       throw new Error('This email is already taken');
@@ -57,7 +45,7 @@ export function* signUp({payload}) {
     yield AsyncStorage.setItem('token', token);
     yield put(signInSuccess(name));
   } catch (error) {
-    yield put(signUpFailure(error.message));
+    yield put(requestFailure(error.message));
   }
 }
 

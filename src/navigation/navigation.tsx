@@ -4,7 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {TouchableOpacity} from 'react-native';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {signedInSelector} from '../redux/user/userSlice';
+import {usernameSelector} from '../redux/user/userSlice';
 import {editStart} from '../redux/columns/columnsSlice';
 
 import Desk from '../screens/desk/desk';
@@ -16,6 +16,8 @@ import PrayedButton from '../components/prayed-button/prayed-button';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 import Settings from 'react-native-vector-icons/Feather';
+
+import styles from './navigation.styles';
 
 export type RootStackParamList = {
   Desk: undefined;
@@ -35,7 +37,7 @@ const BackArrow = () => {
         name="arrowleft"
         size={28}
         color="#fff"
-        style={{marginLeft: 10}}
+        style={styles.arrowleft}
         onPress={() => navigation.goBack()}
       />
     </TouchableOpacity>
@@ -45,7 +47,7 @@ const BackArrow = () => {
 const RootStack = createStackNavigator<RootStackParamList>();
 
 const Navigation: React.FC = () => {
-  const isSignedIn = useSelector(signedInSelector);
+  const user = useSelector(usernameSelector);
   const dispatch = useDispatch();
 
   return (
@@ -54,7 +56,7 @@ const Navigation: React.FC = () => {
         screenOptions={{
           headerTitleAlign: 'center',
         }}>
-        {isSignedIn ? (
+        {user ? (
           <>
             <RootStack.Screen
               name="Desk"
@@ -67,7 +69,7 @@ const Navigation: React.FC = () => {
                       name="plus"
                       size={28}
                       color="#72A8BC"
-                      style={{marginRight: 10}}
+                      style={styles.icon}
                     />
                   </TouchableOpacity>
                 ),
@@ -89,7 +91,7 @@ const Navigation: React.FC = () => {
                       name="settings"
                       size={28}
                       color="#72A8BC"
-                      style={{marginRight: 10}}
+                      style={styles.icon}
                     />
                   </TouchableOpacity>
                 ),

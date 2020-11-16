@@ -1,8 +1,9 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useEffect} from 'react';
 import {Text, View, ScrollView} from 'react-native';
 
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {cardsSelector} from '../../redux/cards/cardsSlice';
+import {getCommentsStart} from '../../redux/comments/commentsSlice';
 
 import {useRoute, RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../../navigation/navigation';
@@ -16,11 +17,16 @@ import styles from './card.styles';
 const Card: React.FC = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'Card'>>();
   const {cardId} = route.params;
+  const dispatch = useDispatch();
   const cards = useSelector(cardsSelector);
   const card = useMemo(() => cards.filter((item) => item.id === cardId)[0], [
     cards,
     cardId,
   ]);
+
+  useEffect(() => {
+    dispatch(getCommentsStart());
+  }, [dispatch]);
 
   return (
     <ScrollView>

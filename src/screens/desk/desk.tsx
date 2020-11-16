@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, FlatList, TextInput} from 'react-native';
 
 import {useSelector, useDispatch} from 'react-redux';
@@ -7,6 +7,7 @@ import {
   isEditSelector,
   addColumn,
   editStart,
+  getColumnsStart,
 } from '../../redux/columns/columnsSlice';
 
 import ColumnPreview from '../../components/column-preview/column-preview';
@@ -28,6 +29,10 @@ const Desk: React.FC = () => {
       dispatch(editStart());
     }
   };
+
+  useEffect(() => {
+    dispatch(getColumnsStart());
+  }, [dispatch]);
 
   return (
     <View style={styles.container}>
