@@ -20,7 +20,11 @@ interface CardsState {
   error: string;
 }
 
-const initialState: CardsState = {cards: Cards, isLoading: false, error: ''};
+const initialState: CardsState = {
+  cards: Cards,
+  isLoading: false,
+  error: '',
+};
 
 export const getCardsStart = createAction('GET_CARDS_START');
 

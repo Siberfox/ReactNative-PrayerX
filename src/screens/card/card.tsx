@@ -19,10 +19,10 @@ const Card: React.FC = () => {
   const {cardId} = route.params;
   const dispatch = useDispatch();
   const cards = useSelector(cardsSelector);
-  const card = useMemo(() => cards.filter((item) => item.id === cardId)[0], [
-    cards,
-    cardId,
-  ]);
+  const card = useMemo(
+    () => cards.cards.filter((item) => item.id === cardId)[0],
+    [cards, cardId],
+  );
 
   useEffect(() => {
     dispatch(getCommentsStart());
