@@ -30,6 +30,8 @@ export const getCardsStart = createAction('GET_CARDS_START');
 
 export const addCardStart = createAction<[string, string]>('ADD_CARD_START');
 
+export const deleteCardStart = createAction<string>('DELETE_CARD_START');
+
 const cardsSlice = createSlice({
   name: 'cards',
   initialState,
@@ -75,13 +77,6 @@ const cardsSlice = createSlice({
       };
     },
 
-    deleteCard: (state, action: PayloadAction<string>) => {
-      return {
-        ...state,
-        cards: state.cards.filter((item) => item.id !== action.payload),
-      };
-    },
-
     setCardsLoading: (state) => {
       return {...state, isLoading: true};
     },
@@ -96,7 +91,6 @@ const cardsSlice = createSlice({
 });
 
 export const {
-  deleteCard,
   addCardPrayed,
   checkCard,
   setCards,

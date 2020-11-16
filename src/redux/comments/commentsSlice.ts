@@ -19,6 +19,8 @@ export const addCommentStart = createAction<[string, string, string]>(
   'ADD_COMMENT_START',
 );
 
+export const deleteCommentStart = createAction<string>('DELETE_COMMENT_START');
+
 const commentsSlice = createSlice({
   name: 'comments',
   initialState,
@@ -44,13 +46,6 @@ const commentsSlice = createSlice({
         }),
       };
     },
-
-    deleteComment: (state, action: PayloadAction<string>) => {
-      return {
-        ...state,
-        comments: state.comments.filter((item) => item.id !== action.payload),
-      };
-    },
     setCommentsLoading: (state) => {
       return {...state, isLoading: true};
     },
@@ -66,7 +61,6 @@ const commentsSlice = createSlice({
 
 export const {
   editComment,
-  deleteComment,
   setComments,
   setCommentsLoading,
   requestCommentsFailure,

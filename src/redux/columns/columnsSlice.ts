@@ -19,18 +19,14 @@ export const getColumnsStart = createAction('GET_COLUMNS_START');
 
 export const addColumnStart = createAction<string>('ADD_COLUMN_START');
 
+export const deleteColumnStart = createAction<string>('DELETE_COLUMN_START');
+
 const columnsSlice = createSlice({
   name: 'columns',
   initialState,
   reducers: {
     setColumn: (state, action: PayloadAction<{id: string; name: string}[]>) => {
       return {...state, columns: [...action.payload], isLoading: false};
-    },
-    deleteColumn: (state, action: PayloadAction<string>) => {
-      return {
-        ...state,
-        columns: state.columns.filter((item) => item.id !== action.payload),
-      };
     },
     editStart: (state) => {
       return {...state, isEdit: !state.isEdit};
@@ -49,7 +45,6 @@ const columnsSlice = createSlice({
 });
 
 export const {
-  deleteColumn,
   editStart,
   setColumn,
   setColumnLoading,

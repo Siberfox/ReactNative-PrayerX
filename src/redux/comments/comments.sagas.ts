@@ -3,7 +3,7 @@ import {PayloadAction} from '@reduxjs/toolkit';
 
 import {
   addCommentStart,
-  deleteComment,
+  deleteCommentStart,
   setComments,
   getCommentsStart,
   setCommentsLoading,
@@ -11,9 +11,9 @@ import {
 } from './commentsSlice';
 
 import {
-  addCommentApi,
-  deleteCommentApi,
-  getCommentsApi,
+  addComment,
+  deleteComment,
+  getComments,
 } from '../../services/apiServices';
 
 export function* addCommentRequest(
@@ -22,7 +22,7 @@ export function* addCommentRequest(
   const [id, value, username] = action.payload;
   try {
     yield put(setCommentsLoading());
-    yield addCommentApi(username, value, id);
+    yield addComment(username, value, id);
     yield put(getCommentsStart());
   } catch (e) {
     yield put(requestCommentsFailure(e.message));
@@ -32,7 +32,7 @@ export function* addCommentRequest(
 export function* deleteCommentRequest(action: PayloadAction<string>) {
   try {
     yield put(setCommentsLoading());
-    yield deleteCommentApi(action.payload);
+    yield deleteComment(action.payload);
     yield put(getCommentsStart());
   } catch (e) {
     yield put(requestCommentsFailure(e.message));
@@ -42,7 +42,7 @@ export function* deleteCommentRequest(action: PayloadAction<string>) {
 export function* getCommentsData() {
   try {
     yield put(setCommentsLoading());
-    const response = yield getCommentsApi();
+    const response = yield getComments();
     console.log(response);
     yield setComments(response);
   } catch (e) {
@@ -59,7 +59,7 @@ export function* onAddComment() {
 }
 
 export function* onDeleteComment() {
-  yield takeLatest(deleteComment, deleteCommentRequest);
+  yield takeLatest(deleteCommentStart, deleteCommentRequest);
 }
 
 export function* commentsSagas() {

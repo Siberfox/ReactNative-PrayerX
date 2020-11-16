@@ -3,23 +3,19 @@ import {PayloadAction} from '@reduxjs/toolkit';
 
 import {
   addColumnStart,
-  deleteColumn,
+  deleteColumnStart,
   setColumn,
   getColumnsStart,
   setColumnLoading,
   requestColumnFailure,
 } from './columnsSlice';
 
-import {
-  addColumnApi,
-  deleteColumnApi,
-  getColumnsApi,
-} from '../../services/apiServices';
+import {addColumn, deleteColumn, getColumns} from '../../services/apiServices';
 
 export function* addColumnRequest(action: PayloadAction<string>) {
   try {
     yield put(setColumnLoading());
-    yield addColumnApi(action.payload);
+    yield addColumn(action.payload);
     yield put(getColumnsStart());
   } catch (e) {
     yield put(requestColumnFailure(e.message));
@@ -29,7 +25,7 @@ export function* addColumnRequest(action: PayloadAction<string>) {
 export function* deleteColumnRequest(action: PayloadAction<string>) {
   try {
     yield put(setColumnLoading());
-    yield deleteColumnApi(action.payload);
+    yield deleteColumn(action.payload);
     yield put(getColumnsStart());
   } catch (e) {
     yield put(requestColumnFailure(e.message));
@@ -39,7 +35,7 @@ export function* deleteColumnRequest(action: PayloadAction<string>) {
 export function* getColumnData() {
   try {
     yield put(setColumnLoading());
-    const response = yield getColumnsApi();
+    const response = yield getColumns();
     yield setColumn(response.data);
   } catch (e) {
     yield put(requestColumnFailure(e.message));
@@ -55,7 +51,7 @@ export function* onAddColumn() {
 }
 
 export function* onDeleteColumn() {
-  yield takeLatest(deleteColumn, deleteColumnRequest);
+  yield takeLatest(deleteColumnStart, deleteColumnRequest);
 }
 
 export function* columnsSagas() {

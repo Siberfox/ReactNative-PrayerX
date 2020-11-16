@@ -4,11 +4,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 const token = AsyncStorage.getItem('token');
 const baseURL = 'http://trello-purrweb.herokuapp.com';
 const headers = {
-  Authorization: `Bearer ${token._W}`,
+  Authorization: `Bearer ${token}`,
   'Content-Type': 'application/json',
 };
 
-export const getColumnsApi = () => {
+export const getColumns = () => {
   return axios({
     method: 'get',
     url: `${baseURL}/columns`,
@@ -16,7 +16,7 @@ export const getColumnsApi = () => {
   });
 };
 
-export const addColumnApi = (title: string) => {
+export const addColumn = (title: string) => {
   return axios({
     method: 'post',
     url: `${baseURL}/columns`,
@@ -27,7 +27,7 @@ export const addColumnApi = (title: string) => {
   });
 };
 
-export const deleteColumnApi = (id: string) => {
+export const deleteColumn = (id: string) => {
   return axios({
     method: 'delete',
     url: `${baseURL}/columns/${id}`,
@@ -35,7 +35,7 @@ export const deleteColumnApi = (id: string) => {
   });
 };
 
-export const getCardsApi = () => {
+export const getCards = () => {
   return axios({
     method: 'get',
     url: `${baseURL}/cards`,
@@ -43,7 +43,7 @@ export const getCardsApi = () => {
   });
 };
 
-export const addCardApi = (value: string, columnId: string) => {
+export const addCard = (value: string, columnId: string) => {
   return axios({
     method: 'post',
     url: `${baseURL}/cards`,
@@ -59,7 +59,7 @@ export const addCardApi = (value: string, columnId: string) => {
   });
 };
 
-export const deleteCardApi = (id: string) => {
+export const deleteCard = (id: string) => {
   return axios({
     method: 'delete',
     url: `${baseURL}/cards/${id}`,
@@ -67,7 +67,7 @@ export const deleteCardApi = (id: string) => {
   });
 };
 
-export const getCommentsApi = () => {
+export const getComments = () => {
   return axios({
     method: 'get',
     url: `${baseURL}/comments`,
@@ -75,11 +75,7 @@ export const getCommentsApi = () => {
   });
 };
 
-export const addCommentApi = (
-  username: string,
-  text: string,
-  cardId: string,
-) => {
+export const addComment = (username: string, text: string, cardId: string) => {
   return axios({
     method: 'post',
     url: `${baseURL}/comments`,
@@ -92,7 +88,7 @@ export const addCommentApi = (
   });
 };
 
-export const deleteCommentApi = (id: string) => {
+export const deleteComment = (id: string) => {
   return axios({
     method: 'delete',
     url: `${baseURL}/comments/${id}`,
