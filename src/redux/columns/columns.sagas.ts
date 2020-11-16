@@ -6,6 +6,8 @@ import {
   deleteColumn,
   setColumn,
   getColumnsStart,
+  setColumnLoading,
+  requestColumnFailure,
 } from './columnsSlice';
 
 import {
@@ -16,28 +18,31 @@ import {
 
 export function* addColumnRequest(action: PayloadAction<string>) {
   try {
+    yield put(setColumnLoading());
     yield addColumnApi(action.payload);
     yield put(getColumnsStart());
   } catch (e) {
-    console.log(e);
+    yield put(requestColumnFailure(e.message));
   }
 }
 
 export function* deleteColumnRequest(action: PayloadAction<string>) {
   try {
+    yield put(setColumnLoading());
     yield deleteColumnApi(action.payload);
     yield put(getColumnsStart());
   } catch (e) {
-    console.log(e);
+    yield put(requestColumnFailure(e.message));
   }
 }
 
 export function* getColumnData() {
   try {
+    yield put(setColumnLoading());
     const response = yield getColumnsApi();
     yield setColumn(response.data);
   } catch (e) {
-    console.log(e);
+    yield put(requestColumnFailure(e.message));
   }
 }
 

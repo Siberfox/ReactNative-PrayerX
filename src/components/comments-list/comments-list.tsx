@@ -1,10 +1,12 @@
-import React, {useMemo, useState} from 'react';
-import {View, Text, TextInput} from 'react-native';
+import React, {useMemo, useState, useEffect} from 'react';
+import {View, Text, TextInput, Alert, ActivityIndicator} from 'react-native';
 
 import {useSelector, useDispatch} from 'react-redux';
 import {
   commentsSelector,
   addCommentStart,
+  errorSelector,
+  isLoadingSelector,
 } from '../../redux/comments/commentsSlice';
 import {usernameSelector} from '../../redux/user/userSlice';
 
@@ -21,10 +23,12 @@ const CommentsList: React.FC<CommentsListProps> = ({cardId}) => {
   const [commentValue, setCommentValue] = useState('');
   const user = useSelector(usernameSelector);
   const dispatch = useDispatch();
+  const error = useSelector(errorSelector);
+  const isLoading = useSelector(isLoadingSelector);
 
   const comments = useSelector(commentsSelector);
   const cardComments = useMemo(
-    () => comments.filter((item) => item.cardId === cardId),
+    () => comments.comments.filter((item) => item.cardId === cardId),
     [comments, cardId],
   );
 
@@ -35,28 +39,44 @@ const CommentsList: React.FC<CommentsListProps> = ({cardId}) => {
     }
   };
 
+  useEffect(() => {
+    if (error) {
+      Alert.alert(error);
+    }
+  }, [error, dispatch]);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>COMMENTS</Text>
-      {cardComments.map((item) => (
-        <CommentsItem key={item.id} item={item} />
-      ))}
-      <View style={styles.inputSection}>
-        <Message
-          name="message-square"
-          size={25}
-          color="#BFB393"
-          style={styles.inputIcon}
+      {isLoading ? (
+        <ActivityIndicator
+          size="large"
+          color="#72A8BC"
+          style={styles.loading}
         />
-        <TextInput
-          underlineColorAndroid="transparent"
-          placeholder="Add a comment..."
-          style={[styles.input]}
-          onChangeText={(text) => setCommentValue(text)}
-          value={commentValue}
-          onSubmitEditing={onAddComment}
-        />
-      </View>
+      ) : (
+        <>
+          <Text style={styles.title}>COMMENTS</Text>
+          {cardComments.map((item) => (
+            <CommentsItem key={item.id} item={item} />
+          ))}
+          <View style={styles.inputSection}>
+            <Message
+              name="message-square"
+              size={25}
+              color="#BFB393"
+              style={styles.inputIcon}
+            />
+            <TextInput
+              underlineColorAndroid="transparent"
+              placeholder="Add a comment..."
+              style={[styles.input]}
+              onChangeText={(text) => setCommentValue(text)}
+              value={commentValue}
+              onSubmitEditing={onAddComment}
+            />
+          </View>
+        </>
+      )}
     </View>
   );
 };

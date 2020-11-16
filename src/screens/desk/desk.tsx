@@ -1,10 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import {View, FlatList, TextInput} from 'react-native';
+import {
+  View,
+  FlatList,
+  TextInput,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 
 import {useSelector, useDispatch} from 'react-redux';
 import {
   columnsSelector,
   isEditSelector,
+  errorSelector,
+  isLoadingSelector,
   addColumnStart,
   editStart,
   getColumnsStart,
@@ -21,6 +29,8 @@ const Desk: React.FC = () => {
   const columns = useSelector(columnsSelector);
   const isEdit = useSelector(isEditSelector);
   const dispatch = useDispatch();
+  const error = useSelector(errorSelector);
+  const isLoading = useSelector(isLoadingSelector);
 
   const onAddColumn = () => {
     if (inputValue) {
@@ -34,32 +44,50 @@ const Desk: React.FC = () => {
     dispatch(getColumnsStart());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (error) {
+      Alert.alert(error);
+    }
+  }, [error, dispatch]);
+
   return (
     <View style={styles.container}>
-      <FlatList
-        style={styles.listStyle}
-        data={columns}
-        renderItem={({item}) => <ColumnPreview name={item.name} id={item.id} />}
-        keyExtractor={(item) => item.id}
-      />
-      {isEdit ? (
-        <View style={styles.inputSection}>
-          <Plus
-            name="plus"
-            size={28}
-            color="#72A8BC"
-            style={styles.inputIcon}
+      {isLoading ? (
+        <ActivityIndicator
+          size="large"
+          color="#72A8BC"
+          style={styles.loading}
+        />
+      ) : (
+        <>
+          <FlatList
+            style={styles.listStyle}
+            data={columns}
+            renderItem={({item}) => (
+              <ColumnPreview name={item.name} id={item.id} />
+            )}
+            keyExtractor={(item) => item.id}
           />
-          <TextInput
-            underlineColorAndroid="transparent"
-            placeholder="Add a column..."
-            style={[styles.input]}
-            onChangeText={(text) => setInputValue(text)}
-            value={inputValue}
-            onSubmitEditing={onAddColumn}
-          />
-        </View>
-      ) : null}
+          {isEdit ? (
+            <View style={styles.inputSection}>
+              <Plus
+                name="plus"
+                size={28}
+                color="#72A8BC"
+                style={styles.inputIcon}
+              />
+              <TextInput
+                underlineColorAndroid="transparent"
+                placeholder="Add a column..."
+                style={[styles.input]}
+                onChangeText={(text) => setInputValue(text)}
+                value={inputValue}
+                onSubmitEditing={onAddColumn}
+              />
+            </View>
+          ) : null}
+        </>
+      )}
     </View>
   );
 };

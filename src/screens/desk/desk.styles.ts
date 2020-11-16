@@ -35,6 +35,9 @@ const styles = StyleSheet.create({
     fontSize: 17,
     lineHeight: 20,
   },
+  loading: {
+    marginTop: 100,
+  },
 });
 
 export default styles;

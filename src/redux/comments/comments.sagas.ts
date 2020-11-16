@@ -6,6 +6,8 @@ import {
   deleteComment,
   setComments,
   getCommentsStart,
+  setCommentsLoading,
+  requestCommentsFailure,
 } from './commentsSlice';
 
 import {
@@ -19,29 +21,32 @@ export function* addCommentRequest(
 ) {
   const [id, value, username] = action.payload;
   try {
+    yield put(setCommentsLoading());
     yield addCommentApi(username, value, id);
     yield put(getCommentsStart());
   } catch (e) {
-    console.log(e);
+    yield put(requestCommentsFailure(e.message));
   }
 }
 
 export function* deleteCommentRequest(action: PayloadAction<string>) {
   try {
+    yield put(setCommentsLoading());
     yield deleteCommentApi(action.payload);
     yield put(getCommentsStart());
   } catch (e) {
-    console.log(e);
+    yield put(requestCommentsFailure(e.message));
   }
 }
 
 export function* getCommentsData() {
   try {
+    yield put(setCommentsLoading());
     const response = yield getCommentsApi();
     console.log(response);
     yield setComments(response);
   } catch (e) {
-    console.log(e);
+    yield put(requestCommentsFailure(e.message));
   }
 }
 

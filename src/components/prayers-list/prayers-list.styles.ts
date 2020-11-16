@@ -48,6 +48,9 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
+  loading: {
+    marginTop: 100,
+  },
 });
 
 export default styles;

@@ -4,9 +4,16 @@ import {Columns} from '../data';
 interface ColumnsState {
   columns: {id: string; name: string}[];
   isEdit: boolean;
+  isLoading: boolean;
+  error: string;
 }
 
-const initialState: ColumnsState = {columns: Columns, isEdit: false};
+const initialState: ColumnsState = {
+  columns: Columns,
+  isEdit: false,
+  isLoading: false,
+  error: '',
+};
 
 export const getColumnsStart = createAction('GET_COLUMNS_START');
 
@@ -17,7 +24,7 @@ const columnsSlice = createSlice({
   initialState,
   reducers: {
     setColumn: (state, action: PayloadAction<{id: string; name: string}[]>) => {
-      return {...state, columns: [...action.payload]};
+      return {...state, columns: [...action.payload], isLoading: false};
     },
     deleteColumn: (state, action: PayloadAction<string>) => {
       return {
@@ -28,10 +35,26 @@ const columnsSlice = createSlice({
     editStart: (state) => {
       return {...state, isEdit: !state.isEdit};
     },
+    setColumnLoading: (state) => {
+      return {...state, isLoading: true};
+    },
+    requestColumnFailure: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+      };
+    },
   },
 });
 
-export const {deleteColumn, editStart, setColumn} = columnsSlice.actions;
+export const {
+  deleteColumn,
+  editStart,
+  setColumn,
+  setColumnLoading,
+  requestColumnFailure,
+} = columnsSlice.actions;
 
 export default columnsSlice.reducer;
 
@@ -40,3 +63,9 @@ export const columnsSelector = (state: {columns: ColumnsState}) =>
 
 export const isEditSelector = (state: {columns: ColumnsState}) =>
   state.columns.isEdit;
+
+export const errorSelector = (state: {columns: ColumnsState}) =>
+  state.columns.error;
+
+export const isLoadingSelector = (state: {columns: ColumnsState}) =>
+  state.columns.isLoading;
