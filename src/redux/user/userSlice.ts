@@ -28,10 +28,15 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    signInSuccess: (state, action: PayloadAction<string>) => {
+    signInSuccess: (
+      state,
+      action: PayloadAction<{name: string; token: string}>,
+    ) => {
+      const {name, token} = action.payload;
       return {
         ...state,
-        name: action.payload,
+        name,
+        token,
         isLoading: false,
       };
     },

@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import {PayloadAction} from '@reduxjs/toolkit';
 
 import {takeLatest, put, all, call} from 'redux-saga/effects';
@@ -24,8 +23,7 @@ export function* signIn(
     if (response.data.message) {
       throw new Error('Wrong email or password');
     }
-    yield AsyncStorage.setItem('token', token);
-    yield put(signInSuccess(name));
+    yield put(signInSuccess({name, token}));
   } catch (error) {
     yield put(requestFailure(error.message));
   }
@@ -42,8 +40,7 @@ export function* signUp(
     if (response.data.message) {
       throw new Error('This email is already taken');
     }
-    yield AsyncStorage.setItem('token', token);
-    yield put(signInSuccess(name));
+    yield put(signInSuccess({name, token}));
   } catch (error) {
     yield put(requestFailure(error.message));
   }

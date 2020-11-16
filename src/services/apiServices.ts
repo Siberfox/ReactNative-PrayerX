@@ -1,7 +1,7 @@
 import axios from 'axios';
-import AsyncStorage from '@react-native-community/async-storage';
+import store from '../redux/store';
 
-const token = AsyncStorage.getItem('token');
+const token = store.getState().user.token;
 const baseURL = 'http://trello-purrweb.herokuapp.com';
 const headers = {
   Authorization: `Bearer ${token}`,
