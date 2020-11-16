@@ -12,23 +12,14 @@ const initialState: CommentsState[] = Comments;
 
 export const getCommentsStart = createAction('GET_COMMENTS_START');
 
+export const addCommentStart = createAction<[string, string, string]>(
+  'ADD_COMMENT_START',
+);
+
 const commentsSlice = createSlice({
   name: 'comments',
   initialState,
   reducers: {
-    addComment: (state, action: PayloadAction<[string, string, string]>) => {
-      const [id, value, username] = action.payload;
-      return [
-        ...state,
-        {
-          name: username,
-          text: value,
-          id: state[state.length - 1].id + 1,
-          cardId: id,
-        },
-      ];
-    },
-
     setComments: (state, action: PayloadAction<CommentsState[]>) => {
       return [...action.payload];
     },
@@ -49,12 +40,7 @@ const commentsSlice = createSlice({
   },
 });
 
-export const {
-  addComment,
-  editComment,
-  deleteComment,
-  setComments,
-} = commentsSlice.actions;
+export const {editComment, deleteComment, setComments} = commentsSlice.actions;
 
 export default commentsSlice.reducer;
 

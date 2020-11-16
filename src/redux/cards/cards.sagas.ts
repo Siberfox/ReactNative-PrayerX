@@ -1,7 +1,7 @@
-import {all, call, takeLatest} from 'redux-saga/effects';
+import {all, call, takeLatest, put} from 'redux-saga/effects';
 import {PayloadAction} from '@reduxjs/toolkit';
 
-import {addCard, deleteCard, setCards, getCardsStart} from './cardsSlice';
+import {deleteCard, setCards, getCardsStart, addCardStart} from './cardsSlice';
 
 import {
   addCardApi,
@@ -13,6 +13,7 @@ export function* addCardRequest(action: PayloadAction<[string, string]>) {
   const [id, value] = action.payload;
   try {
     yield addCardApi(value, id);
+    yield put(getCardsStart);
   } catch (e) {
     console.log(e);
   }
@@ -21,6 +22,7 @@ export function* addCardRequest(action: PayloadAction<[string, string]>) {
 export function* deleteCardRequest(action: PayloadAction<string>) {
   try {
     yield deleteCardApi(action.payload);
+    yield put(getCardsStart);
   } catch (e) {
     console.log(e);
   }
@@ -29,7 +31,6 @@ export function* deleteCardRequest(action: PayloadAction<string>) {
 export function* getCardsData() {
   try {
     const response = yield getCardsApi();
-    console.log(response);
     yield setCards(response);
   } catch (e) {
     console.log(e);
@@ -41,7 +42,7 @@ export function* onGetCardsData() {
 }
 
 export function* onAddCard() {
-  yield takeLatest(addCard, addCardRequest);
+  yield takeLatest(addCardStart, addCardRequest);
 }
 
 export function* onDeleteCard() {

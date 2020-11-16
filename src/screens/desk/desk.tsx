@@ -5,7 +5,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {
   columnsSelector,
   isEditSelector,
-  addColumn,
+  addColumnStart,
   editStart,
   getColumnsStart,
 } from '../../redux/columns/columnsSlice';
@@ -24,7 +24,7 @@ const Desk: React.FC = () => {
 
   const onAddColumn = () => {
     if (inputValue) {
-      dispatch(addColumn(inputValue));
+      dispatch(addColumnStart(inputValue));
       setInputValue('');
       dispatch(editStart());
     }

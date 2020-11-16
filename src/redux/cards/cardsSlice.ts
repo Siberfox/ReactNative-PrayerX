@@ -20,26 +20,12 @@ const initialState: CardsState[] = Cards;
 
 export const getCardsStart = createAction('GET_CARDS_START');
 
+export const addCardStart = createAction<[string, string]>('ADD_CARD_START');
+
 const cardsSlice = createSlice({
   name: 'cards',
   initialState,
   reducers: {
-    addCard: (state, action: PayloadAction<[string, string]>) => {
-      const [id, value] = action.payload;
-      return [
-        ...state,
-        {
-          name: value,
-          id: state[state.length - 1].id + 1 + '',
-          columnId: id,
-          checked: false,
-          subscribed: 0,
-          prayedByMe: 0,
-          prayedByOthers: 0,
-        },
-      ];
-    },
-
     setCards: (state, action: PayloadAction<CardsState[]>) => {
       return [...action.payload];
     },
@@ -68,7 +54,6 @@ const cardsSlice = createSlice({
 });
 
 export const {
-  addCard,
   deleteCard,
   addCardPrayed,
   checkCard,

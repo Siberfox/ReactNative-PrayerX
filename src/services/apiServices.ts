@@ -3,7 +3,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const token = AsyncStorage.getItem('token');
 const baseURL = 'http://trello-purrweb.herokuapp.com';
-const headers = {Authorization: `Bearer ${token._W}`};
+const headers = {
+  Authorization: `Bearer ${token._W}`,
+  'Content-Type': 'application/json',
+};
 
 export const getColumnsApi = () => {
   return axios({
@@ -13,13 +16,13 @@ export const getColumnsApi = () => {
   });
 };
 
-export const addColumnApi = (name: string) => {
+export const addColumnApi = (title: string) => {
   return axios({
     method: 'post',
     url: `${baseURL}/columns`,
     headers,
     data: {
-      name,
+      title,
     },
   });
 };

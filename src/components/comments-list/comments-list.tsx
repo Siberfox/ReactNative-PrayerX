@@ -2,7 +2,10 @@ import React, {useMemo, useState} from 'react';
 import {View, Text, TextInput} from 'react-native';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {commentsSelector, addComment} from '../../redux/comments/commentsSlice';
+import {
+  commentsSelector,
+  addCommentStart,
+} from '../../redux/comments/commentsSlice';
 import {usernameSelector} from '../../redux/user/userSlice';
 
 import CommentsItem from '../comments-item/comments-item';
@@ -27,7 +30,7 @@ const CommentsList: React.FC<CommentsListProps> = ({cardId}) => {
 
   const onAddComment = () => {
     if (commentValue) {
-      dispatch(addComment([cardId, commentValue, user]));
+      dispatch(addCommentStart([cardId, commentValue, user]));
       setCommentValue('');
     }
   };

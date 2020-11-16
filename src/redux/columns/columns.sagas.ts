@@ -1,8 +1,8 @@
-import {all, call, takeLatest} from 'redux-saga/effects';
+import {all, call, takeLatest, put} from 'redux-saga/effects';
 import {PayloadAction} from '@reduxjs/toolkit';
 
 import {
-  addColumn,
+  addColumnStart,
   deleteColumn,
   setColumn,
   getColumnsStart,
@@ -17,6 +17,7 @@ import {
 export function* addColumnRequest(action: PayloadAction<string>) {
   try {
     yield addColumnApi(action.payload);
+    yield put(getColumnsStart());
   } catch (e) {
     console.log(e);
   }
@@ -25,6 +26,7 @@ export function* addColumnRequest(action: PayloadAction<string>) {
 export function* deleteColumnRequest(action: PayloadAction<string>) {
   try {
     yield deleteColumnApi(action.payload);
+    yield put(getColumnsStart());
   } catch (e) {
     console.log(e);
   }
@@ -33,7 +35,6 @@ export function* deleteColumnRequest(action: PayloadAction<string>) {
 export function* getColumnData() {
   try {
     const response = yield getColumnsApi();
-    console.log(response.data);
     yield setColumn(response.data);
   } catch (e) {
     console.log(e);
@@ -45,7 +46,7 @@ export function* onGetColumnData() {
 }
 
 export function* onAddColumn() {
-  yield takeLatest(addColumn, addColumnRequest);
+  yield takeLatest(addColumnStart, addColumnRequest);
 }
 
 export function* onDeleteColumn() {

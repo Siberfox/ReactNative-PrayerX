@@ -1,8 +1,8 @@
-import {all, call, takeLatest} from 'redux-saga/effects';
+import {all, call, put, takeLatest} from 'redux-saga/effects';
 import {PayloadAction} from '@reduxjs/toolkit';
 
 import {
-  addComment,
+  addCommentStart,
   deleteComment,
   setComments,
   getCommentsStart,
@@ -20,6 +20,7 @@ export function* addCommentRequest(
   const [id, value, username] = action.payload;
   try {
     yield addCommentApi(username, value, id);
+    yield put(getCommentsStart());
   } catch (e) {
     console.log(e);
   }
@@ -28,6 +29,7 @@ export function* addCommentRequest(
 export function* deleteCommentRequest(action: PayloadAction<string>) {
   try {
     yield deleteCommentApi(action.payload);
+    yield put(getCommentsStart());
   } catch (e) {
     console.log(e);
   }
@@ -48,7 +50,7 @@ export function* onGetCommentsData() {
 }
 
 export function* onAddComment() {
-  yield takeLatest(addComment, addCommentRequest);
+  yield takeLatest(addCommentStart, addCommentRequest);
 }
 
 export function* onDeleteComment() {

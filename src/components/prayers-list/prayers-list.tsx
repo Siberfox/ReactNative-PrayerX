@@ -3,7 +3,7 @@ import {View, TextInput, FlatList} from 'react-native';
 import Plus from 'react-native-vector-icons/AntDesign';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {columnCardsSelector, addCard} from '../../redux/cards/cardsSlice';
+import {columnCardsSelector, addCardStart} from '../../redux/cards/cardsSlice';
 
 import CustomButton from '../custom-button/custom-button';
 import CardPreview from '../card-preview/card-preview';
@@ -31,7 +31,7 @@ const PrayersList: React.FC<PrayersListProps> = ({columnId}) => {
 
   const onAddCard = () => {
     if (inputValue) {
-      dispatch(addCard([columnId, inputValue]));
+      dispatch(addCardStart([columnId, inputValue]));
       setInputValue('');
     }
   };
