@@ -19,11 +19,9 @@ import {
 import CustomButton from '../custom-button/custom-button';
 import CardPreview from '../card-preview/card-preview';
 
-import styles from './prayers-list.styles';
+import {PrayersListProps} from '../../types';
 
-interface PrayersListProps {
-  columnId: string;
-}
+import styles from './prayers-list.styles';
 
 const PrayersList: React.FC<PrayersListProps> = ({columnId}) => {
   const [inputValue, setInputValue] = useState('');

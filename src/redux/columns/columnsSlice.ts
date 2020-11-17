@@ -1,12 +1,6 @@
 import {createSlice, PayloadAction, createAction} from '@reduxjs/toolkit';
 import {Columns} from '../data';
-
-interface ColumnsState {
-  columns: {id: string; name: string}[];
-  isEdit: boolean;
-  isLoading: boolean;
-  error: string;
-}
+import {ColumnsState} from '../../types';
 
 const initialState: ColumnsState = {
   columns: Columns,

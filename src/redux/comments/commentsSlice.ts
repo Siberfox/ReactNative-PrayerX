@@ -1,11 +1,6 @@
 import {createSlice, PayloadAction, createAction} from '@reduxjs/toolkit';
 import {Comments} from '../data';
-
-interface CommentsState {
-  comments: {id: string; cardId: string; name: string; text: string}[];
-  isLoading: boolean;
-  error: string;
-}
+import {CommentsState, CommentList} from '../../types';
 
 const initialState: CommentsState = {
   comments: Comments,
@@ -25,12 +20,7 @@ const commentsSlice = createSlice({
   name: 'comments',
   initialState,
   reducers: {
-    setComments: (
-      state,
-      action: PayloadAction<
-        {id: string; cardId: string; name: string; text: string}[]
-      >,
-    ) => {
+    setComments: (state, action: PayloadAction<CommentList[]>) => {
       return {...state, comments: [...action.payload]};
     },
 

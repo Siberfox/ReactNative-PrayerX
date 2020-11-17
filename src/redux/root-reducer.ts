@@ -13,8 +13,7 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 
-AsyncStorage.clear();
-// AsyncStorage.removeItem('token');
+// AsyncStorage.clear();
 
 const rootReducer = combineReducers({
   cards: cardsReducer,

@@ -2,14 +2,16 @@ import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 
 import {useDispatch} from 'react-redux';
-import {deleteColumn} from '../../redux/columns/columnsSlice';
+import {deleteColumnStart} from '../../redux/columns/columnsSlice';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import {useNavigation} from '@react-navigation/native';
 
+import {ColumnPreviewProps} from '../../types';
+
 import styles from './column-pteview.styles';
 
-const ColumnPreview: React.FC<{name: string; id: string}> = ({name, id}) => {
+const ColumnPreview: React.FC<ColumnPreviewProps> = ({name, id}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -17,7 +19,7 @@ const ColumnPreview: React.FC<{name: string; id: string}> = ({name, id}) => {
     return (
       <TouchableOpacity
         style={styles.deleteButton}
-        onPress={() => dispatch(deleteColumn(id))}>
+        onPress={() => dispatch(deleteColumnStart(id))}>
         <Text style={styles.deleteText}>Delete</Text>
       </TouchableOpacity>
     );

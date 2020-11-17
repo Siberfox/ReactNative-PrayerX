@@ -1,12 +1,9 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-import styles from './description-list.styles';
+import {DescriptionList} from '../../types';
 
-interface DescriptionList {
-  prayedByMe: number;
-  prayedByOthers: number;
-}
+import styles from './description-list.styles';
 
 const DescriptionList: React.FC<DescriptionList> = ({
   prayedByMe,

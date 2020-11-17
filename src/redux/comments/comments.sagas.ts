@@ -43,7 +43,6 @@ export function* getCommentsData() {
   try {
     yield put(setCommentsLoading());
     const response = yield getComments();
-    console.log(response);
     yield setComments(response);
   } catch (e) {
     yield put(requestCommentsFailure(e.message));

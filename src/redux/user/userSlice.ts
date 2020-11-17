@@ -1,11 +1,6 @@
 import {createSlice, PayloadAction, createAction} from '@reduxjs/toolkit';
 
-interface UserState {
-  token: string;
-  name: string;
-  error: string;
-  isLoading: boolean;
-}
+import {UserState} from '../../types';
 
 const initialState: UserState = {
   name: '',

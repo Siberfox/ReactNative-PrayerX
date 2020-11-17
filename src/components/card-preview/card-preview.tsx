@@ -3,7 +3,7 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 
 import {useDispatch} from 'react-redux';
-import {checkCard, deleteCard} from '../../redux/cards/cardsSlice';
+import {checkCard, deleteCardStart} from '../../redux/cards/cardsSlice';
 
 import {View, Text, TouchableOpacity} from 'react-native';
 import {Checkbox} from 'react-native-paper';
@@ -12,19 +12,9 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import User from 'react-native-vector-icons/Feather';
 import Hands from 'react-native-vector-icons/FontAwesome5';
 
-import styles from './card-preview.styles';
+import {CardPreviewProps} from '../../types';
 
-interface CardPreviewProps {
-  item: {
-    id: string;
-    name: string;
-    columnId: string;
-    checked: boolean;
-    subscribed: number;
-    prayedByMe: number;
-    prayedByOthers: number;
-  };
-}
+import styles from './card-preview.styles';
 
 const CardPreview: React.FC<CardPreviewProps> = ({item}) => {
   const navigation = useNavigation();
@@ -38,7 +28,7 @@ const CardPreview: React.FC<CardPreviewProps> = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.deleteButton}
-        onPress={() => dispatch(deleteCard(item.id))}>
+        onPress={() => dispatch(deleteCardStart(item.id))}>
         <Text style={styles.deleteText}>Delete</Text>
       </TouchableOpacity>
     );

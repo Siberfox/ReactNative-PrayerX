@@ -6,7 +6,7 @@ import {useDispatch} from 'react-redux';
 import {addCardPrayed} from '../../redux/cards/cardsSlice';
 
 import {useRoute, RouteProp} from '@react-navigation/native';
-import {RootStackParamList} from '../../navigation/navigation';
+import {RootStackParamList} from '../../types';
 
 import styles from './prayed-button.styles';
 

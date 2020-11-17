@@ -5,20 +5,7 @@ import {
   createAction,
 } from '@reduxjs/toolkit';
 import {Cards} from '../data';
-
-interface CardsState {
-  cards: {
-    id: string;
-    name: string;
-    columnId: string;
-    checked: boolean;
-    subscribed: number;
-    prayedByMe: number;
-    prayedByOthers: number;
-  }[];
-  isLoading: boolean;
-  error: string;
-}
+import {CardsState, CardList} from '../../types';
 
 const initialState: CardsState = {
   cards: Cards,
@@ -36,20 +23,7 @@ const cardsSlice = createSlice({
   name: 'cards',
   initialState,
   reducers: {
-    setCards: (
-      state,
-      action: PayloadAction<
-        {
-          id: string;
-          name: string;
-          columnId: string;
-          checked: boolean;
-          subscribed: number;
-          prayedByMe: number;
-          prayedByOthers: number;
-        }[]
-      >,
-    ) => {
+    setCards: (state, action: PayloadAction<CardList[]>) => {
       return {...state, cards: [...action.payload], isLoading: false};
     },
 

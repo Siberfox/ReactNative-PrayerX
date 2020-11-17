@@ -1,13 +1,9 @@
 import React from 'react';
-
 import {Button} from 'react-native-paper';
 
-import styles from './custom-button.styles';
+import {CustomButtonProps} from '../../types';
 
-interface CustomButtonProps {
-  text: string;
-  action?: () => void;
-}
+import styles from './custom-button.styles';
 
 const CustomButton: React.FC<CustomButtonProps> = ({text, action}) => {
   return (

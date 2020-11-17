@@ -10,7 +10,7 @@ import {
   setLoading,
 } from './userSlice';
 
-import {signInRequest, signUpRequest} from '../../services/authServices';
+import {signInRequest, signUpRequest} from '../../services/apiServices';
 
 export function* signIn(
   action: PayloadAction<{email: string; password: string}>,

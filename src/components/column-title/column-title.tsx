@@ -1,7 +1,7 @@
 import React from 'react';
 import {useRoute, RouteProp} from '@react-navigation/native';
 import {View, Text, StyleSheet} from 'react-native';
-import {RootStackParamList} from '../../navigation/navigation';
+import {RootStackParamList} from '../../types';
 
 const ColumnTitle: React.FC = () => {
   const {params} = useRoute<RouteProp<RootStackParamList, 'Column'>>();

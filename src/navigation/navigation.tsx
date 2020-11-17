@@ -17,16 +17,9 @@ import PrayedButton from '../components/prayed-button/prayed-button';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Settings from 'react-native-vector-icons/Feather';
 
-import styles from './navigation.styles';
+import {RootStackParamList} from '../types';
 
-export type RootStackParamList = {
-  Desk: undefined;
-  Column: {columnId: string; columnName: string};
-  Card: {
-    cardId: string;
-  };
-  Auth: undefined;
-};
+import styles from './navigation.styles';
 
 const BackArrow = () => {
   const navigation = useNavigation();

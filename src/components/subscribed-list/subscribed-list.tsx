@@ -7,11 +7,9 @@ import {columnCardsSelector} from '../../redux/cards/cardsSlice';
 import CustomButton from '../custom-button/custom-button';
 import CardPreview from '../card-preview/card-preview';
 
-import styles from './subscribed-list.styles';
+import {SubscribedListProps} from '../../types';
 
-interface SubscribedListProps {
-  columnId: string;
-}
+import styles from './subscribed-list.styles';
 
 const SubscribedList: React.FC<SubscribedListProps> = ({columnId}) => {
   const [isShowAnswered, setIsShowAnswered] = useState(false);

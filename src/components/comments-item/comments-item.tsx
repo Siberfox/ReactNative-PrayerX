@@ -5,18 +5,11 @@ import {Avatar} from 'react-native-paper';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import {useDispatch} from 'react-redux';
-import {deleteComment} from '../../redux/comments/commentsSlice';
+import {deleteCommentStart} from '../../redux/comments/commentsSlice';
+
+import {CommentsItemProps} from '../../types';
 
 import styles from './comments-item.styles';
-
-interface CommentsItemProps {
-  item: {
-    id: string;
-    cardId: string;
-    name: string;
-    text: string;
-  };
-}
 
 const CommentsItem: React.FC<CommentsItemProps> = ({item}) => {
   const dispatch = useDispatch();
@@ -25,7 +18,7 @@ const CommentsItem: React.FC<CommentsItemProps> = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.deleteButton}
-        onPress={() => dispatch(deleteComment(item.id))}>
+        onPress={() => dispatch(deleteCommentStart(item.id))}>
         <Text style={styles.deleteText}>Delete</Text>
       </TouchableOpacity>
     );

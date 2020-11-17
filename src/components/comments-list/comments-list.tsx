@@ -13,11 +13,9 @@ import {usernameSelector} from '../../redux/user/userSlice';
 import CommentsItem from '../comments-item/comments-item';
 import Message from 'react-native-vector-icons/Feather';
 
-import styles from './comments-list.styles';
+import {CommentsListProps} from '../../types';
 
-interface CommentsListProps {
-  cardId: string;
-}
+import styles from './comments-list.styles';
 
 const CommentsList: React.FC<CommentsListProps> = ({cardId}) => {
   const [commentValue, setCommentValue] = useState('');
