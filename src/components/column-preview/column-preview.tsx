@@ -11,7 +11,7 @@ import {ColumnPreviewProps} from '../../types';
 
 import styles from './column-pteview.styles';
 
-const ColumnPreview: React.FC<ColumnPreviewProps> = ({name, id}) => {
+const ColumnPreview: React.FC<ColumnPreviewProps> = ({title, id}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -33,9 +33,9 @@ const ColumnPreview: React.FC<ColumnPreviewProps> = ({name, id}) => {
       <TouchableOpacity
         style={styles.columnItem}
         onPress={() =>
-          navigation.navigate('Column', {columnId: id, columnName: name})
+          navigation.navigate('Column', {columnId: id, columnName: title})
         }>
-        <Text style={styles.columnText}>{name}</Text>
+        <Text style={styles.columnText}>{title}</Text>
       </TouchableOpacity>
     </Swipeable>
   );

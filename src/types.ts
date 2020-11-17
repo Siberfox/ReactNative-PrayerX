@@ -2,7 +2,7 @@ export interface CardPreviewProps {
   item: {
     id: string;
     name: string;
-    columnId: string;
+    columnId: number;
     checked: boolean;
     subscribed: number;
     prayedByMe: number;
@@ -11,8 +11,8 @@ export interface CardPreviewProps {
 }
 
 export interface ColumnPreviewProps {
-  name: string;
-  id: string;
+  title: string;
+  id: number;
 }
 
 export interface CommentsItemProps {
@@ -33,22 +33,22 @@ export interface CustomButtonProps {
   action?: () => void;
 }
 
-export interface DescriptionList {
+export interface DescriptionListProps {
   prayedByMe: number;
   prayedByOthers: number;
 }
 
 export interface PrayersListProps {
-  columnId: string;
+  columnId: number;
 }
 
 export interface SubscribedListProps {
-  columnId: string;
+  columnId: number;
 }
 
 export type RootStackParamList = {
   Desk: undefined;
-  Column: {columnId: string; columnName: string};
+  Column: {columnId: number; columnName: string};
   Card: {
     cardId: string;
   };
@@ -58,7 +58,7 @@ export type RootStackParamList = {
 export interface CardList {
   id: string;
   name: string;
-  columnId: string;
+  columnId: number;
   checked: boolean;
   subscribed: number;
   prayedByMe: number;
@@ -72,7 +72,7 @@ export interface CardsState {
 }
 
 export interface ColumnsState {
-  columns: {id: string; name: string}[];
+  columns: {id: number; title: string; userId: number}[];
   isEdit: boolean;
   isLoading: boolean;
   error: string;

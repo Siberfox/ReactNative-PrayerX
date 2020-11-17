@@ -41,7 +41,7 @@ export const addColumn = (title: string) => {
   return api.post('/columns', {title});
 };
 
-export const deleteColumn = (id: string) => {
+export const deleteColumn = (id: number) => {
   return api.delete(`/columns/${id}`);
 };
 
@@ -49,7 +49,7 @@ export const getCards = () => {
   return api.get('/cards');
 };
 
-export const addCard = (value: string, columnId: string) => {
+export const addCard = (value: string, columnId: number) => {
   return api.post('/cards', {
     name: value,
     columnId,

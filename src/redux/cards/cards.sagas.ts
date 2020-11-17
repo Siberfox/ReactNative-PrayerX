@@ -12,7 +12,7 @@ import {
 
 import {addCard, deleteCard, getCards} from '../../services/apiServices';
 
-export function* addCardRequest(action: PayloadAction<[string, string]>) {
+export function* addCardRequest(action: PayloadAction<[number, string]>) {
   const [id, value] = action.payload;
   try {
     yield put(setCardsLoading());
@@ -37,7 +37,8 @@ export function* getCardsData() {
   try {
     yield put(setCardsLoading());
     const response = yield getCards();
-    yield setCards(response);
+    console.log(response.data);
+    yield put(setCards(response));
   } catch (e) {
     yield put(requestCardsFailure(e.message));
   }

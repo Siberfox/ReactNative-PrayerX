@@ -6,7 +6,7 @@ import {cardsSelector} from '../../redux/cards/cardsSlice';
 import {getCommentsStart} from '../../redux/comments/commentsSlice';
 
 import {useRoute, RouteProp} from '@react-navigation/native';
-import {RootStackParamList} from '../../navigation/navigation';
+import {RootStackParamList} from '../../types';
 
 import DescriptionList from '../../components/description-list/description-list';
 import MembersList from '../../components/members-list/members-list';

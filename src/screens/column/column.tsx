@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 
 import {useRoute, RouteProp} from '@react-navigation/native';
-import {RootStackParamList} from '../../navigation/navigation';
+import {RootStackParamList} from '../../types';
 
 import {useDispatch} from 'react-redux';
 import {getCardsStart} from '../../redux/cards/cardsSlice';

@@ -13,13 +13,16 @@ export const getColumnsStart = createAction('GET_COLUMNS_START');
 
 export const addColumnStart = createAction<string>('ADD_COLUMN_START');
 
-export const deleteColumnStart = createAction<string>('DELETE_COLUMN_START');
+export const deleteColumnStart = createAction<number>('DELETE_COLUMN_START');
 
 const columnsSlice = createSlice({
   name: 'columns',
   initialState,
   reducers: {
-    setColumn: (state, action: PayloadAction<{id: string; name: string}[]>) => {
+    setColumn: (
+      state,
+      action: PayloadAction<{id: number; title: string; userId: number}[]>,
+    ) => {
       return {...state, columns: [...action.payload], isLoading: false};
     },
     editStart: (state) => {

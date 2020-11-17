@@ -2,6 +2,8 @@ import {PayloadAction} from '@reduxjs/toolkit';
 
 import {takeLatest, put, all, call} from 'redux-saga/effects';
 
+import {getColumnsStart} from '../columns/columnsSlice';
+
 import {
   signInStart,
   signUpStart,
@@ -24,6 +26,8 @@ export function* signIn(
       throw new Error('Wrong email or password');
     }
     yield put(signInSuccess({name, token}));
+    yield put(getColumnsStart());
+    yield put(setLoading());
   } catch (error) {
     yield put(requestFailure(error.message));
   }
@@ -41,6 +45,8 @@ export function* signUp(
       throw new Error('This email is already taken');
     }
     yield put(signInSuccess({name, token}));
+    yield put(getColumnsStart());
+    yield put(setLoading());
   } catch (error) {
     yield put(requestFailure(error.message));
   }

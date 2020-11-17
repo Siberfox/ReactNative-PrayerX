@@ -15,7 +15,6 @@ import {
   isLoadingSelector,
   addColumnStart,
   editStart,
-  getColumnsStart,
 } from '../../redux/columns/columnsSlice';
 
 import ColumnPreview from '../../components/column-preview/column-preview';
@@ -41,10 +40,6 @@ const Desk: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getColumnsStart());
-  }, [dispatch]);
-
-  useEffect(() => {
     if (error) {
       Alert.alert(error);
     }
@@ -64,9 +59,9 @@ const Desk: React.FC = () => {
             style={styles.listStyle}
             data={columns}
             renderItem={({item}) => (
-              <ColumnPreview name={item.name} id={item.id} />
+              <ColumnPreview title={item.title} id={item.id} />
             )}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => `${item.id}`}
           />
           {isEdit ? (
             <View style={styles.inputSection}>

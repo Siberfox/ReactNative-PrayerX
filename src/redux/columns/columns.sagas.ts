@@ -22,7 +22,7 @@ export function* addColumnRequest(action: PayloadAction<string>) {
   }
 }
 
-export function* deleteColumnRequest(action: PayloadAction<string>) {
+export function* deleteColumnRequest(action: PayloadAction<number>) {
   try {
     yield put(setColumnLoading());
     yield deleteColumn(action.payload);
@@ -36,7 +36,7 @@ export function* getColumnData() {
   try {
     yield put(setColumnLoading());
     const response = yield getColumns();
-    yield setColumn(response.data);
+    yield put(setColumn(response.data));
   } catch (e) {
     yield put(requestColumnFailure(e.message));
   }

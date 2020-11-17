@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-import {DescriptionList} from '../../types';
+import {DescriptionListProps} from '../../types';
 
 import styles from './description-list.styles';
 
-const DescriptionList: React.FC<DescriptionList> = ({
+const DescriptionList: React.FC<DescriptionListProps> = ({
   prayedByMe,
   prayedByOthers,
 }) => {

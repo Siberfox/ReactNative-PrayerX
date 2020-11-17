@@ -15,7 +15,7 @@ const initialState: CardsState = {
 
 export const getCardsStart = createAction('GET_CARDS_START');
 
-export const addCardStart = createAction<[string, string]>('ADD_CARD_START');
+export const addCardStart = createAction<[number, string]>('ADD_CARD_START');
 
 export const deleteCardStart = createAction<string>('DELETE_CARD_START');
 
@@ -24,7 +24,7 @@ const cardsSlice = createSlice({
   initialState,
   reducers: {
     setCards: (state, action: PayloadAction<CardList[]>) => {
-      return {...state, cards: [...action.payload], isLoading: false};
+      return {...state, cards: action.payload, isLoading: false};
     },
 
     addCardPrayed: (state, action: PayloadAction<string>) => {
@@ -76,7 +76,7 @@ export default cardsSlice.reducer;
 
 export const cardsSelector = (state: {cards: CardsState}) => state.cards;
 
-export const columnCardsSelector = (id: string) =>
+export const columnCardsSelector = (id: number) =>
   createSelector([cardsSelector], (cards: CardsState) =>
     cards.cards.filter((card) => card.columnId === id),
   );

@@ -32,7 +32,6 @@ const userSlice = createSlice({
         ...state,
         name,
         token,
-        isLoading: false,
       };
     },
     requestFailure: (state, action: PayloadAction<string>) => {
